@@ -77,7 +77,7 @@ public class CompteDAO {
           public List<Responsable> selectAllResponsables(){
                 List<Responsable> listeresp = new ArrayList<Responsable>();
                 
-                String requete = "select nom,prenom,cin,etablissement,adresse_email,login,phone,status from responsable";
+                String requete = "select last_name,first_name,cin,etablissement,adresse_email,login,phone,status from responsable";
                 //String query = "select * from responsable";
         try {
             Statement statement = MyConnection.getInstance().createStatement();
@@ -111,7 +111,7 @@ public class CompteDAO {
             public List<Citoyen> getAllCitoyens(){
                 List<Citoyen> listecit = new ArrayList<Citoyen>();
                 
-                String requete = "select nom,prenom,cin,date_nais,adresse,adresse_email,login,phone,status from citoyen";
+                String requete = "select last_name,first_name,cin,date_of_birth,adresse,adresse_mail,login,phone,etat_compte from citoyen";
                 //String query = "select * from responsable";
         try {
             Statement statement = MyConnection.getInstance().createStatement();

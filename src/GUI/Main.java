@@ -155,7 +155,8 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void compteciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compteciActionPerformed
-        //rs.setVisible(false);
+        this.remove(rs);
+        this.remove(st);
         
         //CompteCitoyen ct = new CompteCitoyen();
         ct.setBounds(200, 130, 850, 700);
@@ -165,15 +166,19 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_compteciActionPerformed
 
     private void valideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valideActionPerformed
-        Statistiques st = new Statistiques();
+        this.remove(ct);
+        this.remove(rs);
+        
         st.setBounds(200, 130, 850, 700);
         this.getContentPane().add(st);
         this.setVisible(true);
+        
         st.afficherStatistiques();
     }//GEN-LAST:event_valideActionPerformed
     
     private void compterespActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compterespActionPerformed
-        //ct.setVisible(false);
+        this.remove(ct);
+        this.remove(st);
         
         //CompteResponsable rs = new CompteResponsable();
         rs.setBounds(200, 130, 850, 700);
@@ -234,5 +239,5 @@ public class Main extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 private CompteCitoyen ct = new CompteCitoyen();
 private CompteResponsable rs = new CompteResponsable();
-
+private Statistiques st = new Statistiques();
 }
