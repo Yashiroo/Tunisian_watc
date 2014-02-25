@@ -75,7 +75,7 @@ public class Statistiques extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        JavaFX_Statistics jfx = new JavaFX_Statistics();
+        //JavaFX_Statistics jfx = new JavaFX_Statistics();
         
     }//GEN-LAST:event_formComponentShown
 
@@ -125,12 +125,6 @@ public void afficherStatistiques(){
             model.addRow(new Object[]{""});
             k+=1;
         }
-        
-        
-        
-        
-        
-        
         
         model.removeRow(stats.getRowCount()-1);
     

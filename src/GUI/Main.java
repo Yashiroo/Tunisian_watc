@@ -47,6 +47,7 @@ public class Main extends javax.swing.JFrame {
         compteci = new javax.swing.JButton();
         valide = new javax.swing.JButton();
         compteresp = new javax.swing.JButton();
+        stats2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administration Tunisian Watch");
@@ -93,6 +94,13 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        stats2.setText("Générer les Statistiques 2");
+        stats2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stats2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,17 +113,15 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(compteci, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(16, 16, 16))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(compteresp, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)))
+                                    .addComponent(compteresp, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(compteci, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(stats2))))
+                        .addGap(41, 41, 41)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jSeparator1))
@@ -139,9 +145,11 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68)
-                        .addComponent(compteci, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61)
+                        .addComponent(stats2)
                         .addGap(18, 18, 18)
+                        .addComponent(compteci, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
                         .addComponent(compteresp, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,6 +165,7 @@ public class Main extends javax.swing.JFrame {
     private void compteciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compteciActionPerformed
         this.remove(rs);
         this.remove(st);
+        this.remove(gs);
         
         //CompteCitoyen ct = new CompteCitoyen();
         ct.setBounds(200, 130, 850, 700);
@@ -164,10 +173,11 @@ public class Main extends javax.swing.JFrame {
         this.setVisible(true);
         ct.afficher();
     }//GEN-LAST:event_compteciActionPerformed
-
+        
     private void valideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valideActionPerformed
         this.remove(ct);
         this.remove(rs);
+        this.remove(gs);
         
         st.setBounds(200, 130, 850, 700);
         this.getContentPane().add(st);
@@ -179,6 +189,7 @@ public class Main extends javax.swing.JFrame {
     private void compterespActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compterespActionPerformed
         this.remove(ct);
         this.remove(st);
+        this.remove(gs);
         
         //CompteResponsable rs = new CompteResponsable();
         rs.setBounds(200, 130, 850, 700);
@@ -192,6 +203,18 @@ public class Main extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         
     }//GEN-LAST:event_formWindowOpened
+
+    private void stats2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stats2ActionPerformed
+        this.remove(ct);
+        this.remove(st);
+        this.remove(rs);
+        
+        //CompteResponsable rs = new CompteResponsable();
+        gs.setBounds(200, 130, 850, 700);
+        this.getContentPane().add(gs);
+        this.setVisible(true);
+        gs.afficher();
+    }//GEN-LAST:event_stats2ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -235,9 +258,13 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JButton stats2;
     private javax.swing.JButton valide;
     // End of variables declaration//GEN-END:variables
 private CompteCitoyen ct = new CompteCitoyen();
 private CompteResponsable rs = new CompteResponsable();
 private Statistiques st = new Statistiques();
+private stats_gouvernorat gs = new stats_gouvernorat();
+
+
 }
