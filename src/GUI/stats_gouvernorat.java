@@ -4,7 +4,9 @@
  */
 package GUI;
 
+import DAO.EtablissementDAO;
 import DAO.GouvernoratDAO;
+import Entities.Etablissement;
 import Entities.Gouvernorat;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,7 @@ public class stats_gouvernorat extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         gouvtab = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(845, 469));
 
@@ -50,59 +53,85 @@ public class stats_gouvernorat extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(gouvtab);
 
+        jLabel1.setText("Statistiques des Réclamations par Gouvernorat et Etablissement");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(6, 6, 6)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(50, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable gouvtab;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
 public void afficher(){
     
         GouvernoratDAO gd = new GouvernoratDAO();
+        EtablissementDAO ed = new EtablissementDAO();
+        
         List<Gouvernorat> liste = new ArrayList<Gouvernorat>();
         liste=gd.getAllGouv();
+        List<Etablissement> listeEtab = new ArrayList<Etablissement>();
+        listeEtab = ed.getAllEtab();
         
         String[] colName = new String[] {
-           "Gouvernorat", "Réclamations", "Réclamations résolues", "Réclamations non résolues"
+           "Gouvernorat","Etablissement", "Réclamations", "Réclamations résolues", "Réclamations non résolues"
             };
+        
         DefaultTableModel model = new DefaultTableModel(colName, WIDTH); 
         gouvtab.setModel(model);
         int k=0;
+        
         int grecs=0;
-                
+        
                 
         
         for(Gouvernorat g:liste){
-                
+                //int i=1;
             gouvtab.getModel().setValueAt(g.getNomgouv(),k,0);
-            gouvtab.getModel().setValueAt(gd.getAllGouvRec(g),k,1);
+            
+            for(Etablissement e:listeEtab){
+                k+=1;
+                model.addRow(new Object[]{""});
+                gouvtab.getModel().setValueAt("",k,0);
+                gouvtab.getModel().setValueAt(e.getName(),k,1);
+                
+                gouvtab.getModel().setValueAt(gd.getRecsForGouvEtab(g,e),k,2);
+                
+            }
             model.addRow(new Object[]{""});
             k+=1;
-        }
+            }
+            
+        
     
         model.removeRow(gouvtab.getRowCount()-1);
     
+    }
     
     
     
-    
-}
+
 
 
 

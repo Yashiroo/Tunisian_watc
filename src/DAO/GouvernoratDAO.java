@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import Entities.Etablissement;
 import Entities.Gouvernorat;
 import conn.MyConnection;
 import java.sql.PreparedStatement;
@@ -50,13 +51,15 @@ public class GouvernoratDAO {
     
     
     
-public int getAllGouvRec(Gouvernorat g){
+public int getRecsForGouvEtab(Gouvernorat g,Etablissement e){
         
-        String query = "select count(id_reclamation) from responsable r,etablissement e, reclamation rec where rec.responsable_id_responsable=r.id_responsable AND r.etablissement=e.id_etablissement AND e.gouvernorat=?";
+        String query = "select count(*) from responsable r inner join reclamation rec on r.id_responsable = rec.responsable_id_responsable inner join etablissement e on rec.etablissement_id_etablissement=e.id_etablissement where e.gouvernerat=? AND e.id_etablissement=?";
+        
         int res=0;
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(query);
             ps.setInt(1, g.getIdgouv());
+            ps.setInt(2,e.getId());
             ResultSet resultat = ps.executeQuery();
             
             if(resultat.next())

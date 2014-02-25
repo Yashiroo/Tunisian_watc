@@ -41,14 +41,16 @@ public class SelectResponsables {
             //System.out.println(c.getNom());
             }
             
+            List<Etablissement> listeEtab = new ArrayList<Etablissement>();
+            
+            EtablissementDAO ed = new EtablissementDAO();
+            listeEtab=ed.getAllEtab();
+            for(Etablissement e1:listeEtab)
+            {
+            System.out.println(e1.getName());
+            }
             
             Etablissement e = new Etablissement();
-            EtablissementDAO ed = new EtablissementDAO();
-            
-            e=ed.findEtablissementById(2);
-            //System.out.println(e.getName());
-        
-            
             
             ThreadsDAO td = new ThreadsDAO();
             List<Thread> lt = new ArrayList<Thread>();
@@ -70,7 +72,7 @@ public class SelectResponsables {
         }
         Gouvernorat g = new Gouvernorat();
         g.setIdgouv(1);
-        System.out.println(gd.getAllGouvRec(g));
+        //System.out.println(gd.getAllGouvRec(g));
 
         
         
