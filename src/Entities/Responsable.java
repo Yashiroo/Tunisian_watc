@@ -11,6 +11,7 @@ import java.sql.Date;
  * @author user
  */
 public class Responsable{
+    private int id;
     private String nom;
     private String prenom ;
     private int cin;
@@ -109,7 +110,13 @@ public class Responsable{
     public void setAdress_mail(String adress_mail) {
         this.adresse_email = adress_mail;
     }
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     
     

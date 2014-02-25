@@ -5,6 +5,7 @@
 package DAO;
 
 import Entities.Etablissement;
+import Entities.Responsable;
 import Entities.Thread;
 import conn.MyConnection;
 import java.sql.PreparedStatement;
@@ -144,7 +145,40 @@ public class EtablissementDAO {
           return res;
       }
       
+  public Etablissement getEtab(Responsable r){
+            Etablissement e = new Etablissement();
+            String query = "select * from etablissement where responsable_id_responsable=?";
+            
+        try {
+            PreparedStatement ps = MyConnection.getInstance().prepareStatement(query);
+            ps.setInt(1,r.getCin());
+            ResultSet resultat = ps.executeQuery();
+            while(resultat.next())
+            {
+                e.setId(resultat.getInt(1));
+                e.setName(resultat.getString(2));
+                e.setName(resultat.getString(2));
+                e.setName(resultat.getString(2));
+                e.setName(resultat.getString(2));
+                    
+                    
+            }
+            return e;
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(EtablissementDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+            
       
+      
+      
+      
+      
+      
+      
+  }
       
       
       
