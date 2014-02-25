@@ -76,7 +76,7 @@ public class CompteDAO {
           public List<Responsable> selectAllResponsables(){
                 List<Responsable> listeresp = new ArrayList<Responsable>();
                 
-                String requete = "select last_name,first_name,cin,adress_mail,login,phone,etat_compte from responsable";
+                String requete = "select id_responsable,last_name,first_name,cin,adress_mail,login,phone,etat_compte from responsable";
                 //String query = "select * from responsable";
         try {
             Statement statement = MyConnection.getInstance().createStatement();
@@ -86,14 +86,15 @@ public class CompteDAO {
             
             while(resultat.next()){
                 Responsable resp =new Responsable();
-                resp.setNom(resultat.getString(1));
-                resp.setPrenom(resultat.getString(2));
-                resp.setCin(resultat.getInt(3));
+                resp.setId(resultat.getInt(1));
+                resp.setNom(resultat.getString(2));
+                resp.setPrenom(resultat.getString(3));
+                resp.setCin(resultat.getInt(4));
                 //resp.setEtablissement(resultat.getString(4));
-                resp.setAdress_mail(resultat.getString(4));
-                resp.setLogin(resultat.getString(5));
-                resp.setPhone(resultat.getInt(6));
-                resp.setStatus(resultat.getInt(7));
+                resp.setAdress_mail(resultat.getString(5));
+                resp.setLogin(resultat.getString(6));
+                resp.setPhone(resultat.getInt(7));
+                resp.setStatus(resultat.getInt(8));
 
                 listeresp.add(resp);
             }

@@ -11,9 +11,9 @@ package Entities;
 public class Etablissement {
             private int id;
             private String name;
-            private String ville;
+            private int ville;
             private String type;
-            private String gouvernorat;
+            private int gouvernorat;
             private int resp_id;
 
     public int getId() {
@@ -32,11 +32,11 @@ public class Etablissement {
         this.name = name;
     }
 
-    public String getVille() {
+    public int getVille() {
         return ville;
     }
 
-    public void setVille(String ville) {
+    public void setVille(int ville) {
         this.ville = ville;
     }
 
@@ -48,11 +48,11 @@ public class Etablissement {
         this.type = type;
     }
 
-    public String getGouvernorat() {
+    public int getGouvernorat() {
         return gouvernorat;
     }
 
-    public void setGouvernorat(String gouvernorat) {
+    public void setGouvernorat(int gouvernorat) {
         this.gouvernorat = gouvernorat;
     }
 

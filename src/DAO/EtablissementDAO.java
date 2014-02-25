@@ -35,8 +35,8 @@ public class EtablissementDAO {
                 e.setId(resultat.getInt(1));
                 e.setName(resultat.getString(2));
                 e.setType(resultat.getString(3));
-                e.setVille(resultat.getString(4));
-                e.setGouvernorat(resultat.getString(5));
+                e.setVille(resultat.getInt(4));
+                e.setGouvernorat(resultat.getInt(5));
                 e.setResp_id(resultat.getInt(6));
                 liste.add(e);
             }
@@ -64,8 +64,8 @@ public class EtablissementDAO {
             e.setName(resultat.getString(2));
             e.setName(resultat.getString(2));
             e.setType(resultat.getString(3));
-            e.setVille(resultat.getString(4));
-            e.setGouvernorat(resultat.getString(5));
+            e.setVille(resultat.getInt(4));
+            e.setGouvernorat(resultat.getInt(5));
             e.setResp_id(resultat.getInt(6));
             
         }
@@ -151,16 +151,16 @@ public class EtablissementDAO {
             
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(query);
-            ps.setInt(1,r.getCin());
+            ps.setInt(1,r.getId());
             ResultSet resultat = ps.executeQuery();
             while(resultat.next())
             {
                 e.setId(resultat.getInt(1));
                 e.setName(resultat.getString(2));
-                e.setName(resultat.getString(2));
-                e.setName(resultat.getString(2));
-                e.setName(resultat.getString(2));
-                    
+                e.setType(resultat.getString(3));
+                e.setVille(resultat.getInt(4));
+                e.setGouvernorat(resultat.getInt(5));
+                e.setResp_id(resultat.getInt(6)); 
                     
             }
             return e;

@@ -5,6 +5,7 @@
 package GUI;
 
 import DAO.CompteDAO;
+import DAO.EtablissementDAO;
 import Entities.Responsable;
 import java.util.ArrayList;
 import java.util.List;
@@ -117,7 +118,7 @@ public class CompteResponsable extends javax.swing.JPanel {
            
     }//GEN-LAST:event_formComponentShown
 public void afficher(){
-    
+        EtablissementDAO ed = new EtablissementDAO();
         CompteDAO resp = new CompteDAO();
         List<Responsable> listresp = new ArrayList<Responsable>();
         listresp= resp.selectAllResponsables();
@@ -146,7 +147,7 @@ public void afficher(){
                 tableResponsables.getModel().setValueAt(r.getNom(),i,j+1);
                 tableResponsables.getModel().setValueAt(r.getPrenom(),i,j+2);
                 tableResponsables.getModel().setValueAt(r.getCin(),i,j+3);
-                tableResponsables.getModel().setValueAt(r.getEtablissement(),i,j+4);
+                tableResponsables.getModel().setValueAt(ed.getEtab(r).getName(),i,j+4);
                 tableResponsables.getModel().setValueAt(r.getAdress_mail(),i,j+5);
                 tableResponsables.getModel().setValueAt(r.getPhone(),i,j+6);
                 tableResponsables.getModel().setValueAt(status,i,j+7);

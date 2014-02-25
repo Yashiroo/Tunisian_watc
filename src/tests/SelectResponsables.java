@@ -47,7 +47,7 @@ public class SelectResponsables {
             listeEtab=ed.getAllEtab();
             for(Etablissement e1:listeEtab)
             {
-            System.out.println(e1.getName());
+            //System.out.println(e1.getName());
             }
             
             Etablissement e = new Etablissement();
@@ -73,7 +73,11 @@ public class SelectResponsables {
         Gouvernorat g = new Gouvernorat();
         g.setIdgouv(1);
         //System.out.println(gd.getAllGouvRec(g));
-
+        Responsable r = new Responsable();
+        r.setId(1);
+        System.out.println(ed.getEtab(r).getName());
+        
+        
         
         
 }
