@@ -7,12 +7,12 @@ package tests;
 import DAO.CompteDAO;
 import DAO.EtablissementDAO;
 import DAO.GouvernoratDAO;
-import DAO.ThreadsDAO;
+import DAO.ReclamationDAO;
 import Entities.Citoyen;
 import Entities.Etablissement;
 import Entities.Gouvernorat;
 import Entities.Responsable;
-import Entities.Thread;
+import Entities.Reclamation;
 import conn.MyConnection;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,16 +47,16 @@ public class SelectResponsables {
             listeEtab=ed.getAllEtab();
             for(Etablissement e1:listeEtab)
             {
-            //System.out.println(e1.getName());
+//            System.out.println(e1.getName());
             }
             
             Etablissement e = new Etablissement();
-            
-            ThreadsDAO td = new ThreadsDAO();
-            List<Thread> lt = new ArrayList<Thread>();
-            lt=ed.getThreadsForEtablissement(e);
-            for(Thread t:lt){
-                //System.out.println(t.getSujet());
+            e=ed.findEtablissementById(1);
+            ReclamationDAO td = new ReclamationDAO();
+            List<Reclamation> lt = new ArrayList<Reclamation>();
+            lt=ed.getRecsForEtablissement(e,2,2014);
+            for(Reclamation t:lt){
+//                System.out.println(t.getSujet());
             
             
         }
@@ -75,7 +75,37 @@ public class SelectResponsables {
         //System.out.println(gd.getAllGouvRec(g));
         Responsable r = new Responsable();
         r.setId(1);
-        System.out.println(ed.getEtab(r).getName());
+        //System.out.println(ed.getEtab(r).getName());
+        
+        
+        Object[] res=getStatsByEtabByMonthByYear.afficherTotalRec(e, 2, 2014);
+        for(Object o:res) {
+//                System.out.println((Double)o);
+            }
+            
+        
+        Object[] res2=getStatsByEtabByMonthByYear.afficherRecTraitees(e, 2, 2014);
+        for(Object o:res2) {
+//            System.out.println((Double)o);
+            }
+            
+        Object[] res3=getStatsByEtabByMonthByYear.afficherRecNonTraitees(e, 2, 2014);
+        for(Object o:res3) {
+//            System.out.println((Double)o);
+            }
+        
+
+        System.out.println(getStatsByEtabByMonthByYear.afficherRecNonTraitees(e, 1, 2014));
+        
+        Etablissement ee = ed.findEtablissementByName("Tunisie Télécom");
+        System.out.println(ee.getGouvernorat());
+        
+        
+        
+        
+        
+        
+        
         
         
         

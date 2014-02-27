@@ -39,6 +39,7 @@ public class CompteCitoyen extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableCitoyens = new javax.swing.JTable();
+        btnActiver = new javax.swing.JButton();
 
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
@@ -58,6 +59,13 @@ public class CompteCitoyen extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tableCitoyens);
 
+        btnActiver.setText("jButton1");
+        btnActiver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActiverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -70,6 +78,10 @@ public class CompteCitoyen extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnActiver)
+                .addGap(41, 41, 41))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,7 +90,9 @@ public class CompteCitoyen extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnActiver)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -86,7 +100,12 @@ public class CompteCitoyen extends javax.swing.JPanel {
 
     }//GEN-LAST:event_formComponentShown
 
+    private void btnActiverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActiverActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnActiverActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActiver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableCitoyens;
@@ -99,7 +118,7 @@ public void afficher(){
         String[] colName = new String[] {
            "Pseudo", "Nom", "Prénom", "Email", "Téléphone", "Etat"
             };
-         
+        
         DefaultTableModel model = new DefaultTableModel(colName, WIDTH);
         tableCitoyens.setModel(model);
         
@@ -133,12 +152,28 @@ public void afficher(){
         //leftRenderer.setHorizontalAlignment( JLabel.CENTER );
         //tableResponsables.getColumnModel().getColumn(0).setCellRenderer( leftRenderer );
         //leftRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-
+        desactiver();
 
 }
 
-public void remove(){
-        this.show(false);
+public void desactiver(){
+    tableCitoyens.addMouseListener(new java.awt.event.MouseAdapter() {
+    @Override
+    public void mouseClicked(java.awt.event.MouseEvent evt) {
+        int row = tableCitoyens.rowAtPoint(evt.getPoint());
+        int col = tableCitoyens.columnAtPoint(evt.getPoint());
+        if (row >=0 && col >=0) {
+            
+            
+            if(tableCitoyens.getValueAt(tableCitoyens.getSelectedRow(), 5) == "Actif")
+                btnActiver.setText("Désactiver");
+            else if(tableCitoyens.getValueAt(tableCitoyens.getSelectedRow(), 5) == "Non Actif")
+                btnActiver.setText("Activer");
+            
+        }
+    }
+});
+
 
 }
 

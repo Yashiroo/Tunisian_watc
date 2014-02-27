@@ -40,8 +40,6 @@ public class CompteResponsable extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableResponsables = new javax.swing.JTable();
         btnDesactiver = new javax.swing.JButton();
-        btnSupprimer = new javax.swing.JButton();
-        btnModifier = new javax.swing.JButton();
 
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
@@ -73,10 +71,6 @@ public class CompteResponsable extends javax.swing.JPanel {
             }
         });
 
-        btnSupprimer.setText("Supprimer");
-
-        btnModifier.setText("Modifier");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,10 +85,6 @@ public class CompteResponsable extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnModifier)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSupprimer)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDesactiver)
                 .addGap(18, 18, 18))
         );
@@ -106,10 +96,7 @@ public class CompteResponsable extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDesactiver)
-                    .addComponent(btnSupprimer)
-                    .addComponent(btnModifier))
+                .addComponent(btnDesactiver)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -194,14 +181,12 @@ public void desactiver(){
     }//GEN-LAST:event_formComponentAdded
 
     private void btnDesactiverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactiverActionPerformed
-        if(tableResponsables.getValueAt(tableResponsables.getSelectedRow(), 7) == "Actif" )
-            btnDesactiver.setText("Activer");
+//        if(tableResponsables.getValueAt(tableResponsables.getSelectedRow(), 7) == "Actif" )
+//            btnDesactiver.setText("Activer");
     }//GEN-LAST:event_btnDesactiverActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDesactiver;
-    private javax.swing.JButton btnModifier;
-    private javax.swing.JButton btnSupprimer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableResponsables;

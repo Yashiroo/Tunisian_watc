@@ -16,7 +16,13 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import GUI.CompteResponsable;
+import inst.SwingInterop;
+import java.awt.BorderLayout;
+import java.awt.Paint;
 import java.awt.Rectangle;
+import javax.swing.JApplet;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -49,6 +55,7 @@ public class Main extends javax.swing.JFrame {
         valide = new javax.swing.JButton();
         compteresp = new javax.swing.JButton();
         stats2 = new javax.swing.JButton();
+        btnstatsetab = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administration Tunisian Watch");
@@ -102,30 +109,39 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        btnstatsetab.setText("Statistiques par Etablissement");
+        btnstatsetab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnstatsetabActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 45, Short.MAX_VALUE))
+                .addGap(0, 123, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(stats2)
-                                    .addComponent(valide, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
-                                    .addComponent(compteci, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(compteresp, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                             .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnstatsetab)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(stats2)
+                                        .addComponent(valide, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                                        .addComponent(compteci, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(compteresp, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))))
+                        .addGap(28, 28, 28)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jSeparator1))
@@ -140,6 +156,9 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSeparator2)
+                        .addGap(30, 30, 30))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -147,14 +166,13 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(valide, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
                         .addComponent(stats2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(37, 37, 37)
+                        .addGap(38, 38, 38)
+                        .addComponent(btnstatsetab)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                         .addComponent(compteci, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38)
                         .addComponent(compteresp, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(227, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator2)
-                        .addGap(30, 30, 30))))
+                        .addGap(64, 64, 64))))
         );
 
         pack();
@@ -164,8 +182,8 @@ public class Main extends javax.swing.JFrame {
         this.getContentPane().remove(rs);
         this.getContentPane().remove(st);
         this.getContentPane().remove(gs);
+        this.repaint();
         
-        //CompteCitoyen ct = new CompteCitoyen();
         ct.setBounds(rect);
         this.getContentPane().add(ct);
         this.setVisible(true);
@@ -176,6 +194,7 @@ public class Main extends javax.swing.JFrame {
         this.getContentPane().remove(ct);
         this.getContentPane().remove(rs);
         this.getContentPane().remove(gs);
+        this.repaint();
         
         st.setBounds(rect);
         this.getContentPane().add(st);
@@ -188,8 +207,8 @@ public class Main extends javax.swing.JFrame {
         this.getContentPane().remove(ct);
         this.getContentPane().remove(st);
         this.getContentPane().remove(gs);
+        this.repaint();
         
-        //CompteResponsable rs = new CompteResponsable();
         rs.setBounds(rect);
         this.getContentPane().add(rs);
         this.setVisible(true);
@@ -206,13 +225,37 @@ public class Main extends javax.swing.JFrame {
         this.getContentPane().remove(ct);
         this.getContentPane().remove(st);
         this.getContentPane().remove(rs);
+        this.repaint();
         
-        //CompteResponsable rs = new CompteResponsable();
+        
         gs.setBounds(rect);
         this.getContentPane().add(gs);
         this.setVisible(true);
         gs.afficher();
     }//GEN-LAST:event_stats2ActionPerformed
+
+    private void btnstatsetabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnstatsetabActionPerformed
+                
+                JFrame frame = new SwingInterop();
+                frame.setBounds(300,200,1120,600);
+                frame.setVisible(true);
+//                s.init();
+//                s.ini();
+//                s.createScene();
+//                s.setBounds(260, 130,1000, 500);
+//                this.getContentPane().add(s.chartFxPanel);
+//                this.repaint();
+//            JFrame frame = new JFrame("stats");
+//            Validation panel = new Validation();
+//            frame.add(panel);
+//            JApplet applet = new SwingInterop();
+//          frame.add(applet, BorderLayout.EAST);
+//            applet.init();
+            
+//            frame.pack();
+//            frame.setVisible(rootPaneCheckingEnabled);
+        
+    }//GEN-LAST:event_btnstatsetabActionPerformed
     
     /**
      * @param args the command line arguments
@@ -249,6 +292,7 @@ public class Main extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnstatsetab;
     private javax.swing.JButton compteci;
     private javax.swing.JButton compteresp;
     private javax.swing.JLabel jLabel1;
@@ -263,6 +307,6 @@ private CompteCitoyen ct = new CompteCitoyen();
 private CompteResponsable rs = new CompteResponsable();
 private Statistiques st = new Statistiques();
 private stats_gouvernorat gs = new stats_gouvernorat();
-private Rectangle rect = new Rectangle(240, 130, 850, 700);
+private Rectangle rect = new Rectangle(260, 130, 850, 800);
 
 }

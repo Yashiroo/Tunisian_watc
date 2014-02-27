@@ -5,9 +5,9 @@
 package GUI;
 
 import DAO.EtablissementDAO;
-import DAO.ThreadsDAO;
+import DAO.ReclamationDAO;
 import Entities.Etablissement;
-import Entities.Thread;
+import Entities.Reclamation;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -95,7 +95,7 @@ public class Statistiques extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
 public void afficherStatistiques(){
-        ThreadsDAO td = new ThreadsDAO();
+        ReclamationDAO td = new ReclamationDAO();
         EtablissementDAO ed = new EtablissementDAO();
         
         String[] colName = new String[] {
@@ -104,14 +104,14 @@ public void afficherStatistiques(){
         DefaultTableModel model = new DefaultTableModel(colName, WIDTH); 
         stats.setModel(model);
         
-         List<Entities.Thread> lt = new ArrayList<Entities.Thread>();
-         lt=td.getAllThreads();
+         List<Reclamation> lt = new ArrayList<Reclamation>();
+         lt=td.getAllRec();
          int resolue=0;
          int nonresolue=0;
          int i=0;
          int j=0;
          
-         for(Thread t:lt){
+         for(Reclamation t:lt){
              
                 if(t.getEtat().equals("resolue"))
                     resolue+=1;
@@ -129,9 +129,9 @@ public void afficherStatistiques(){
         for(Etablissement e:le){
             
             stats.getModel().setValueAt(e.getName(),k,0);
-            stats.getModel().setValueAt(ed.totalRec(e),k,1);
-            stats.getModel().setValueAt(ed.recTraitees(e),k,2);
-            stats.getModel().setValueAt(ed.recNonTraitees(e),k,3);
+            stats.getModel().setValueAt(ed.totalRec(e, 2, 2014),k,1);
+            stats.getModel().setValueAt(ed.recTraitees(e, 2, 2014),k,2);
+            stats.getModel().setValueAt(ed.recNonTraitees(e, 2, 2014),k,3);
             model.addRow(new Object[]{""});
             k+=1;
         }

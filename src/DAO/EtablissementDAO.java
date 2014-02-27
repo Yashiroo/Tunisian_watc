@@ -5,8 +5,8 @@
 package DAO;
 
 import Entities.Etablissement;
+import Entities.Reclamation;
 import Entities.Responsable;
-import Entities.Thread;
 import conn.MyConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,7 +44,7 @@ public class EtablissementDAO {
             return liste;
             
         } catch (SQLException ex) {
-            Logger.getLogger(ThreadsDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReclamationDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
                     
@@ -77,43 +77,78 @@ public class EtablissementDAO {
         }
     }
  
+    public Etablissement findEtablissementByName(String name){
+        Etablissement e = new Etablissement();
+        String requete = "select * from etablissement where name=?";
+
+        try{
+        PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
+        ps.setString(1, name);
+        ResultSet resultat = ps.executeQuery();
+        
+        while (resultat.next()){
+            
+            e.setName(resultat.getString(2));
+            e.setName(resultat.getString(2));
+            e.setType(resultat.getString(3));
+            e.setVille(resultat.getInt(4));
+            e.setGouvernorat(resultat.getInt(5));
+            e.setResp_id(resultat.getInt(6));
+            
+        }
+        return e;
+        }
+        catch(SQLException ex){
+            System.out.println("erreur lors du chargement"+ex.getMessage());
+            return null;
+        }
+    }
   
   
-  
-      public List<Entities.Thread> getThreadsForEtablissement(Etablissement e){
+      public List<Reclamation> getRecsForEtablissement(Etablissement e,int month,int year){
                   
-                  List<Entities.Thread> liste = new ArrayList<Entities.Thread>();
-                  String query = "select * from discussion where id_responsable=?";
+                  List<Reclamation> liste = new ArrayList<Reclamation>();
+                  String query = "SELECT * FROM reclamation WHERE etablissement_id_etablissement = ? AND month(date_reclamation) = ? AND year(date_reclamation)=?";
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(query);
             ps.setInt(1, e.getResp_id());
+            ps.setInt(2,month);
+            ps.setInt(3,year);
+            
             ResultSet resultat = ps.executeQuery();
             
            while(resultat.next()){
-                Entities.Thread t = new Entities.Thread();
+                Reclamation t = new Reclamation();
                 t.setId(resultat.getInt(1));
                 t.setEtat(resultat.getString(2));
-                t.setSujet(resultat.getString(3));
-                t.setId_resp(resultat.getInt(4));
+                t.setDegre_urgence(resultat.getInt(3));
+                t.setSujet(resultat.getString(4));
+                t.setDate_rec(resultat.getString(5));
+                t.setId_cit(resultat.getInt(6));
+                t.setId_resp(resultat.getInt(7));
+                t.setText(resultat.getString(8));
+                t.setType(resultat.getString(9));
+                t.setId_etab(resultat.getInt(10));
                 liste.add(t);
+                
             }
 
             return liste;
             
         } catch (SQLException ex) {
-            Logger.getLogger(ThreadsDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReclamationDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
   
               }
       
       
-      public int recTraitees(Etablissement e){
+      public int recTraitees(Etablissement e,int month,int year){
                 
-                List<Entities.Thread> et = new ArrayList<Entities.Thread>();
-                et=getThreadsForEtablissement(e);
+                List<Reclamation> et = new ArrayList<Reclamation>();
+                et=getRecsForEtablissement(e,month,year);
                 int res=0;
-                for(Entities.Thread t:et){
+                for(Reclamation t:et){
                         if(t.getEtat().equalsIgnoreCase("resolue"))
                             res+=1;   
                 }
@@ -121,12 +156,12 @@ public class EtablissementDAO {
           return res;
       }
         
-      public int recNonTraitees(Etablissement e){
+      public int recNonTraitees(Etablissement e,int month,int year){
                 
-                List<Entities.Thread> et = new ArrayList<Entities.Thread>();
-                et=getThreadsForEtablissement(e);
+                List<Reclamation> et = new ArrayList<Reclamation>();
+                et=getRecsForEtablissement(e,month,year);
                 int res=0;
-                for(Entities.Thread t:et){
+                for(Reclamation t:et){
                         if(t.getEtat().equalsIgnoreCase("non resolue"))
                             res+=1;   
                 }
@@ -135,10 +170,10 @@ public class EtablissementDAO {
       }
       
       
-      public int totalRec(Etablissement e){
+      public int totalRec(Etablissement e,int month,int year){
                 
-                List<Entities.Thread> et = new ArrayList<Entities.Thread>();
-                et=getThreadsForEtablissement(e);
+                List<Reclamation> et = new ArrayList<Reclamation>();
+                et=getRecsForEtablissement(e,month,year);
                 int res=0;
                 res=et.size();
 
