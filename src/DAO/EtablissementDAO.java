@@ -88,7 +88,7 @@ public class EtablissementDAO {
         
         while (resultat.next()){
             
-            e.setName(resultat.getString(2));
+            e.setId(resultat.getInt(1));
             e.setName(resultat.getString(2));
             e.setType(resultat.getString(3));
             e.setVille(resultat.getInt(4));

@@ -99,6 +99,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class SwingInterop extends JFrame {
 //    ComboBox<Etablissement> comboBox;
+    
     private static final int PANEL_WIDTH_INT = 1100;
     private static final int PANEL_HEIGHT_INT = 600;
     private static final int TABLE_PANEL_HEIGHT_INT = 100;
@@ -108,14 +109,20 @@ public class SwingInterop extends JFrame {
     private static SampleTableModel tableModel;
     private Chart chart;
     private JTable table;
+    private JTable table2;
     private Pane browser;
     private GridPane cm;
     public static JPanel panel = new JPanel();
         final Button button = new Button ("Afficher");
+        final Button resetButton = new Button ("Réinitialiser");
         final Label notification = new Label ();
         final ComboBox etabComboBox = new ComboBox();
         EtablissementDAO ed = new EtablissementDAO();
-       private static Etablissement etab = new Etablissement();
+//       private static Etablissement etab = new Etablissement();
+         public static String etabName;
+       private NumberAxis yAxis;
+               
+      
 
 
     public static void main(String[] args) {
@@ -126,8 +133,6 @@ public class SwingInterop extends JFrame {
 //                "Statistiques réclamations par Etablissement"
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 
-//                frame.add(frame);
-
                 frame.pack();
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
@@ -167,7 +172,7 @@ public class SwingInterop extends JFrame {
         
         double tickUnit = tableModel.getTickUnit();
         
-        NumberAxis yAxis = new NumberAxis();
+         yAxis = new NumberAxis();
         yAxis.setTickUnit(tickUnit);
         yAxis.setLabel("Réclamations");
 
@@ -209,20 +214,7 @@ public class SwingInterop extends JFrame {
         }
     }
     
-    
-    public void init() {
-    ini();
-    
-    
-    
-    // create JavaFX scene
-    Platform.runLater(new Runnable() {
-        public void run() {
-            createScene();
-        }
-    });
 
-}
     
     
     
@@ -237,7 +229,7 @@ public class SwingInterop extends JFrame {
         
 
 //        this.setTitle("Selection d'un Etablissement");
-        Scene scene = new Scene(new Group(), 50, 50);
+//        Scene scene = new Scene(new Group());
         
 
         EtablissementDAO et = new EtablissementDAO();
@@ -255,16 +247,22 @@ public class SwingInterop extends JFrame {
                     !etabComboBox.getValue().toString().isEmpty()){
                         notification.setText("Statistiques rafraichies" );   
 //                        etabComboBox.setValue(null);
+//                            ini();
+//                          tableModel = new SampleTableModel(etabComboBox.getValue().toString());
+                          etabName=etabComboBox.getValue().toString();
                           tableModel = new SampleTableModel();
-//                          table = new JTable(tableModel);
+                          table2 = new JTable(tableModel);
                           
-                          int rows = table.getRowCount();
-                          int columns = table.getColumnCount();
+                          int rows = table.getRowCount()-1;
+                          int columns = table.getColumnCount()-1;
+                          
                             for(int i=0;i<=rows;i++){
-                                for(int j=1;j<columns;j++){
-                            table.getModel().setValueAt(tableModel.getValueAt(i, j),i,j);
+                                for(int j=1;j<=columns;j++){
+//                                    System.out.println(table.getModel().getValueAt(i, j).getClass());
+                            table.getModel().setValueAt(table2.getModel().getValueAt(i, j),i,j);
                             }
                             }
+                            
                           repaint();
 
                 }
@@ -274,15 +272,35 @@ public class SwingInterop extends JFrame {
             }
         });
         
+            resetButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+
+                        notification.setText("Données Réinitialisées" );   
+//                        etabComboBox.setValue(null);
+//                            ini();
+//                          tableModel = new SampleTableModel(etabComboBox.getValue().toString());
+//                          etabName=etabComboBox.getValue().toString();
+//                          tableModel = new SampleTableModel();
+//                          table = new JTable(tableModel);
+                          
+                            resetTable();
+
+                
+
+            }
+        });
+        
         GridPane grid = new GridPane();
         grid.setVgap(4);
         grid.setHgap(10);
         grid.setPadding(new Insets(5, 5, 5, 5));
         grid.add(new Label("Etablissement"), 0, 0);
         grid.add(etabComboBox, 1, 0);
-
+        
 
         grid.add(button, 3, 5,5,2);
+        grid.add(resetButton, 2, 8,8,2);
         grid.add (notification, 1, 3, 3, 1);
         
 //        Group root = (Group)scene.getRoot();
@@ -291,32 +309,60 @@ public class SwingInterop extends JFrame {
 //        stage.show();
         return grid;
         
+    }
+    
+    
+    private void resetTable()
+    {
+            
+                          
+                          
+                          int rows = table.getRowCount()-1;
+                          int columns = table.getColumnCount()-1;
+                          
+                            for(int i=0;i<=rows;i++){
+                                for(int j=1;j<=columns;j++){
+                            table.getModel().setValueAt(new Double(0.001),i,j);
+                            }
+                            }
+
         
         
-        
-        
-        
-        
+                            
+
+
+                            System.out.println("working");
+                            etabComboBox.setValue(null);
+                          repaint();
+                          
         
     }
     
     
-      public void ini(){
-//    comboBox = new ComboBox();
-//    VBox root = new VBox();
-//    root.getChildren().addAll(comboBox);
-        
-
-//    if(etabComboBox.getValue()!=null)
-//         etab = ed.findEtablissementByName(etabComboBox.getValue().toString());
     
-//    if(etab==null){
-//        etab.setName("STEG");
+    
+    
+    
+    public void init() {
+//    ini();
+    
+//    if(etabComboBox.getValue()!=null)
+//        tableModel = new SampleTableModel(etabComboBox.getValue().toString());
+//    if(etabComboBox.getValue()==null)
+        
+        
+        
+        tableModel = new SampleTableModel();
+//        tableModel.setName("STEG");
+        
 //        etab.setId(1);
-            tableModel = new SampleTableModel();
+    
 //    }
 //    else if(etab==null)
 //        tableModel = new SampleTableModel(); 
+        
+        
+        
     // create javafx panel for charts
     chartFxPanel = new JFXPanel();
     chartFxPanel.setPreferredSize(new Dimension(PANEL_WIDTH_INT, PANEL_HEIGHT_INT));
@@ -325,7 +371,9 @@ public class SwingInterop extends JFrame {
     panel.setLayout(new BorderLayout());
 
     //JTable
+//    tableModel.updateTableContent("STEG");
      table = new JTable(tableModel);
+     
      
     table.setAutoCreateRowSorter(true);
     table.setGridColor(Color.DARK_GRAY);
@@ -344,9 +392,10 @@ public class SwingInterop extends JFrame {
 
     panel.add(chartTablePanel, BorderLayout.CENTER);
     panel.add(tablePanel, BorderLayout.SOUTH);
+    table.getColumnModel().getColumn(0).setMinWidth(150); // reclamations
 //    panel.add(comboBox, rootPane);
     add(panel, BorderLayout.CENTER);
-    }
+    
 
     
     
@@ -359,4 +408,13 @@ public class SwingInterop extends JFrame {
     
     
     
+    // create JavaFX scene
+    Platform.runLater(new Runnable() {
+        public void run() {
+            createScene();
+        }
+    });
+
 }
+    
+    }

@@ -43,23 +43,27 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.BarChart;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import tests.SelectResponsables;
 
 /**
  * SampleTableModel
  */
 public class SampleTableModel extends AbstractTableModel {
     private static ObservableList<BarChart.Series> bcData;
-    
     private final String[] names = {"","Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"};
     
 //    private Object[] totalrec = null;
     EtablissementDAO ed = new EtablissementDAO();
-    Etablissement e=ed.findEtablissementById(2);
+//    String etabName = SwingInterop.etabName;
+    String etabName = SelectResponsables.etabName;
+    Etablissement e=ed.findEtablissementByName(etabName);
+    
     private Object[][] data = {
             
             getStatsByEtabByMonthByYear.afficherTotalRec(e,1,2014),getStatsByEtabByMonthByYear.afficherRecTraitees(e,1,2014),getStatsByEtabByMonthByYear.afficherRecNonTraitees(e,1,2014)
            
         };
+
 
     public double getTickUnit() {
         return 1000;
@@ -67,6 +71,7 @@ public class SampleTableModel extends AbstractTableModel {
 
     public List<String> getColumnNames() {
         return Arrays.asList(names);
+        
     }
 
     @Override

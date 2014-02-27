@@ -35,6 +35,7 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        
     }
 
     /**
@@ -237,23 +238,10 @@ public class Main extends javax.swing.JFrame {
     private void btnstatsetabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnstatsetabActionPerformed
                 
                 JFrame frame = new SwingInterop();
+                frame.setTitle("Réclamations filtrées");
                 frame.setBounds(300,200,1120,600);
                 frame.setVisible(true);
-//                s.init();
-//                s.ini();
-//                s.createScene();
-//                s.setBounds(260, 130,1000, 500);
-//                this.getContentPane().add(s.chartFxPanel);
-//                this.repaint();
-//            JFrame frame = new JFrame("stats");
-//            Validation panel = new Validation();
-//            frame.add(panel);
-//            JApplet applet = new SwingInterop();
-//          frame.add(applet, BorderLayout.EAST);
-//            applet.init();
-            
-//            frame.pack();
-//            frame.setVisible(rootPaneCheckingEnabled);
+
         
     }//GEN-LAST:event_btnstatsetabActionPerformed
     

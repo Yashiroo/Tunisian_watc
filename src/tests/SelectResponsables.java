@@ -14,15 +14,26 @@ import Entities.Gouvernorat;
 import Entities.Responsable;
 import Entities.Reclamation;
 import conn.MyConnection;
+import inst.SampleTableModel;
+import inst.SwingInterop;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.chart.BarChart;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 /**
  *
  * @author Yashiro
  */
 public class SelectResponsables {
-
+public static String etabName;
         public static void main(String[] args) {
             
             
@@ -102,9 +113,30 @@ public class SelectResponsables {
         
         
         
+        /**********************************************************************************/
+        JFrame frame = new JFrame();
+         JPanel panel = new JPanel();
+         JTable table;
+         etabName="STEG";
+//         etabName="Tunisie Télécom";
+         SampleTableModel tableModel;
+         panel.setLayout(new BorderLayout());
+         tableModel = new SampleTableModel();
+         table = new JTable(tableModel);
+         table.getColumnModel().getColumn(0).setMinWidth(160);
         
-        
-        
+        panel.add(table);
+    //JTable
+     table = new JTable(tableModel);
+     BarChart bt;
+     
+     frame.setBounds(960, 200, 700, 500);
+     frame.add(panel);
+     frame.setVisible(true);
+     
+     
+     
+     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         
         
