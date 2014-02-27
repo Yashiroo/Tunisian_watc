@@ -129,9 +129,9 @@ public void afficherStatistiques(){
         for(Etablissement e:le){
             
             stats.getModel().setValueAt(e.getName(),k,0);
-            stats.getModel().setValueAt(ed.totalRec(e, 2, 2014),k,1);
-            stats.getModel().setValueAt(ed.recTraitees(e, 2, 2014),k,2);
-            stats.getModel().setValueAt(ed.recNonTraitees(e, 2, 2014),k,3);
+            stats.getModel().setValueAt(td.totalRec(e),k,1);
+            stats.getModel().setValueAt(td.recTraitees(e),k,2);
+            stats.getModel().setValueAt(td.recNonTraitees(e),k,3);
             model.addRow(new Object[]{""});
             k+=1;
         }

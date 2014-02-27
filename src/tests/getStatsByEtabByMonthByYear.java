@@ -5,6 +5,7 @@
 package tests;
 
 import DAO.EtablissementDAO;
+import DAO.ReclamationDAO;
 import Entities.Etablissement;
 
 /**
@@ -29,18 +30,20 @@ public class getStatsByEtabByMonthByYear {
             
     }
         public static Object[] afficherTotalRec(Etablissement e,int month,int year){
-            Object[] totalrec = new Object[12];
+            Object[] totalrec = new Object[13];
             EtablissementDAO ed = new EtablissementDAO();
+            ReclamationDAO td = new ReclamationDAO();
             int m=1;
-            for(int i=0;i<12;i++)
+            totalrec[0]="Réclamations";
+            for(int i=1;i<13;i++)
             {
                 
-                totalrec[i]=new Double(ed.totalRec(e,m,year));
+                totalrec[i]=new Double(td.totalRec(e,m,year));
                 m+=1;
             }
              
              
-             for(int i=0;i<12;i++)
+             for(int i=0;i<13;i++)
              {
                  if(totalrec[i]==null)
                      totalrec[i]=0.0;
@@ -52,17 +55,19 @@ public class getStatsByEtabByMonthByYear {
         
      
         public static Object[] afficherRecTraitees(Etablissement e,int month,int year){
-            Object[] totalrec = new Object[12];
+            Object[] totalrec = new Object[13];
             EtablissementDAO ed = new EtablissementDAO();
+            ReclamationDAO td = new ReclamationDAO();
             int m=1;
-            for(int i=0;i<12;i++)
+            totalrec[0]="Réclamations Traitées";
+            for(int i=1;i<13;i++)
             {
-
-                totalrec[i]=new Double(ed.recTraitees(e,m,year));
+                
+                totalrec[i]=new Double(td.recTraitees(e,m,year));
                 m+=1;
                 }
             
-            for(int i=0;i<12;i++)
+            for(int i=0;i<13;i++)
              {
                  if(totalrec[i]==null)
                      totalrec[i]=0.0;
@@ -75,18 +80,20 @@ public class getStatsByEtabByMonthByYear {
         
         
         public static Object[] afficherRecNonTraitees(Etablissement e,int month,int year){
-            Object[] totalrec = new Object[12];
+            Object[] totalrec = new Object[13];
             EtablissementDAO ed = new EtablissementDAO();
+            ReclamationDAO td = new ReclamationDAO();
             int m=1;
-            for(int i=0;i<12;i++)
+            totalrec[0]="Réclamations Non Traitées";
+            for(int i=1;i<13;i++)
             {
-
-                totalrec[i]=new Double(ed.recNonTraitees(e,m,year));
+                
+                totalrec[i]=new Double(td.recNonTraitees(e,m,year));
                 m+=1;
                 }
             
             
-            for(int i=0;i<12;i++)
+            for(int i=0;i<13;i++)
              {
                  if(totalrec[i]==null)
                      totalrec[i]=0.0;

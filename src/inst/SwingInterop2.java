@@ -90,7 +90,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * SwingInterop
+ * SwingInterop2
  *
  * Note using the browser might require setting the properties
  *  - http.proxyHost
@@ -99,16 +99,16 @@ import javax.swing.table.DefaultTableModel;
  * e.g. -Dhttp.proxyHost=webcache.mydomain.com -Dhttp.proxyPort=8080
  * 
  */
-public class SwingInterop extends JFrame {
-//    ComboBox<Etablissement> comboBox;
+public class SwingInterop2 extends JFrame {
+
     
     private static final int PANEL_WIDTH_INT = 1100;
     private static final int PANEL_HEIGHT_INT = 460;
     private static final int TABLE_PANEL_HEIGHT_INT = 100;
     public static JFXPanel chartFxPanel;
-    private static JFXPanel browserFxPanel;
+//    private static JFXPanel browserFxPanel;
 //    private static JFXPanel comboBox;
-    private static SampleTableModel tableModel;
+    private static SampleTableModel2 tableModel;
     public  Chart chart;
     private JTable table;
     private JTable table2;
@@ -131,7 +131,7 @@ public class SwingInterop extends JFrame {
 
                 
                 
-                JFrame frame = new SwingInterop();
+                JFrame frame = new SwingInterop2();
 //                "Statistiques réclamations par Etablissement"
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 
@@ -140,7 +140,7 @@ public class SwingInterop extends JFrame {
                 frame.setVisible(true);
     }
 
-    public SwingInterop() throws HeadlessException {
+    public SwingInterop2() throws HeadlessException {
         init();
     }
 
@@ -189,7 +189,7 @@ public class SwingInterop extends JFrame {
                 if (e.getType() == TableModelEvent.UPDATE) {
                     final int row = e.getFirstRow();
                     final int column = e.getColumn();
-                    final Object value = ((SampleTableModel) e.getSource()).getValueAt(row, column);
+                    final Object value = ((SampleTableModel2) e.getSource()).getValueAt(row, column);
                     
                     Platform.runLater(new Runnable() {
                         public void run() {
@@ -256,7 +256,7 @@ public class SwingInterop extends JFrame {
 //                            ini();
 //                          tableModel = new SampleTableModel(etabComboBox.getValue().toString());
                           etabName=etabComboBox.getValue().toString();
-                          tableModel = new SampleTableModel();
+                          tableModel = new SampleTableModel2();
                           table2 = new JTable(tableModel);
                           
                           int rows = table.getRowCount()-1;
@@ -355,7 +355,7 @@ public class SwingInterop extends JFrame {
         
         
         
-        tableModel = new SampleTableModel();
+        tableModel = new SampleTableModel2();
 //        tableModel.setName("STEG");
         
 //        etab.setId(1);
@@ -380,7 +380,7 @@ public class SwingInterop extends JFrame {
      
     table.setAutoCreateRowSorter(true);
     table.setGridColor(Color.DARK_GRAY);
-    SwingInterop.DecimalFormatRenderer renderer = new SwingInterop.DecimalFormatRenderer();
+    SwingInterop2.DecimalFormatRenderer renderer = new SwingInterop2.DecimalFormatRenderer();
     renderer.setHorizontalAlignment(JLabel.LEFT);
     for (int i = 0; i < table.getColumnCount(); i++) {
         table.getColumnModel().getColumn(i).setCellRenderer(renderer);

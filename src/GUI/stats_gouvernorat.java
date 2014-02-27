@@ -6,11 +6,13 @@ package GUI;
 
 import DAO.EtablissementDAO;
 import DAO.GouvernoratDAO;
+import DAO.ReclamationDAO;
 import Entities.Etablissement;
 import Entities.Gouvernorat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import metier.GestionReclamation;
 
 /**
  *
@@ -88,7 +90,7 @@ public void afficher(){
     
         GouvernoratDAO gd = new GouvernoratDAO();
         EtablissementDAO ed = new EtablissementDAO();
-        
+        ReclamationDAO rd = new ReclamationDAO();
         List<Gouvernorat> liste = new ArrayList<Gouvernorat>();
         liste=gd.getAllGouv();
         List<Etablissement> listeEtab = new ArrayList<Etablissement>();
@@ -99,10 +101,11 @@ public void afficher(){
             };
         
         DefaultTableModel model = new DefaultTableModel(colName, WIDTH); 
+        
         gouvtab.setModel(model);
         int k=0;
-        
-        int grecs=0;
+        GestionReclamation grec = new GestionReclamation();
+//        int grecs=0;
         
                 
         
@@ -116,8 +119,9 @@ public void afficher(){
                 gouvtab.getModel().setValueAt("",k,0);
                 gouvtab.getModel().setValueAt(e.getName(),k,1);
                 
-                gouvtab.getModel().setValueAt(gd.getRecsForGouvEtab(g,e),k,2);
-                
+                gouvtab.getModel().setValueAt(rd.getRecsForGouvEtab(g,e),k,2);
+                gouvtab.getModel().setValueAt(grec.getRecResolues(rd.getRecsInfoForGouvEtab(g,e)),k,3);
+                gouvtab.getModel().setValueAt(grec.getRecNonResolues(rd.getRecsInfoForGouvEtab(g,e)),k,4);
             }
             model.addRow(new Object[]{""});
             k+=1;

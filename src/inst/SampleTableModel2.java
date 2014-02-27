@@ -48,13 +48,13 @@ import tests.SelectResponsables;
 /**
  * SampleTableModel
  */
-public class SampleTableModel extends AbstractTableModel {
+public class SampleTableModel2 extends AbstractTableModel {
     private static ObservableList<BarChart.Series> bcData;
     private final String[] names = {"","Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Décembre"};
     
 //    private Object[] totalrec = null;
     EtablissementDAO ed = new EtablissementDAO();
-    String etabName = SwingInterop.etabName;
+    String etabName = SwingInterop2.etabName;
 //    String etabName = SelectResponsables.etabName;
     Etablissement e=ed.findEtablissementByName(etabName);
     

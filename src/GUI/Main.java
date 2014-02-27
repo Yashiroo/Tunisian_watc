@@ -64,6 +64,9 @@ public class Main extends javax.swing.JFrame {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
         });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -110,7 +113,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        btnstatsetab.setText("Statistiques par Etablissement");
+        btnstatsetab.setText("Chartes Graphiques");
         btnstatsetab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnstatsetabActionPerformed(evt);
@@ -123,7 +126,7 @@ public class Main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 123, Short.MAX_VALUE))
+                .addGap(0, 124, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -219,7 +222,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_compterespActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        
+            
     }//GEN-LAST:event_formWindowOpened
 
     private void stats2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stats2ActionPerformed
@@ -244,6 +247,10 @@ public class Main extends javax.swing.JFrame {
 
         
     }//GEN-LAST:event_btnstatsetabActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+//        this.setBounds(300, 300, 1202, 649);
+    }//GEN-LAST:event_formWindowActivated
     
     /**
      * @param args the command line arguments
@@ -271,11 +278,13 @@ public class Main extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
                 new Main().setVisible(true);
+                
             }
         });
     }
