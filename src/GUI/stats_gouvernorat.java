@@ -7,6 +7,7 @@ package GUI;
 import DAO.EtablissementDAO;
 import DAO.GouvernoratDAO;
 import DAO.ReclamationDAO;
+import DAO.VilleDAO;
 import Entities.Etablissement;
 import Entities.Gouvernorat;
 import java.util.ArrayList;
@@ -106,22 +107,28 @@ public void afficher(){
         int k=0;
         GestionReclamation grec = new GestionReclamation();
 //        int grecs=0;
+        VilleDAO vd = new VilleDAO();
         
-                
         
         for(Gouvernorat g:liste){
                 //int i=1;
-            gouvtab.getModel().setValueAt(g.getNomgouv(),k,0);
-            
-            for(Etablissement e:listeEtab){
-                k+=1;
-                model.addRow(new Object[]{""});
-                gouvtab.getModel().setValueAt("",k,0);
-                gouvtab.getModel().setValueAt(e.getName(),k,1);
+                gouvtab.getModel().setValueAt(g.getNomgouv(),k,0);
                 
-                gouvtab.getModel().setValueAt(rd.getRecsForGouvEtab(g,e),k,2);
-                gouvtab.getModel().setValueAt(grec.getRecResolues(rd.getRecsInfoForGouvEtab(g,e)),k,3);
-                gouvtab.getModel().setValueAt(grec.getRecNonResolues(rd.getRecsInfoForGouvEtab(g,e)),k,4);
+                for(Etablissement e:listeEtab){
+                
+                
+                
+                if(vd.checkVilleGouv(g,ed.getVilleForEtab(e))){
+                    k+=1;
+                    model.addRow(new Object[]{""});
+                    gouvtab.getModel().setValueAt("",k,0);
+                    gouvtab.getModel().setValueAt(e.getName(),k,1);
+
+                    gouvtab.getModel().setValueAt(rd.totalRec(e),k,2);
+                    gouvtab.getModel().setValueAt(grec.getRecResolues(rd.getRecsForEtablissement(e)),k,3);
+                    gouvtab.getModel().setValueAt(grec.getRecNonResolues(rd.getRecsForEtablissement(e)),k,4);
+                
+                }
             }
             model.addRow(new Object[]{""});
             k+=1;

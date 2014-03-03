@@ -51,6 +51,7 @@
                                       <Component id="compteci" alignment="0" max="32767" attributes="0"/>
                                       <Component id="compteresp" alignment="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
+                                  <Component id="sendEmail" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -86,7 +87,9 @@
                       <Component id="stats2" min="-2" pref="32" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Component id="btnstatsetab" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="139" max="32767" attributes="0"/>
+                      <EmptySpace pref="62" max="32767" attributes="0"/>
+                      <Component id="sendEmail" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                       <Component id="compteci" min="-2" pref="27" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Component id="compteresp" min="-2" pref="27" max="-2" attributes="0"/>
@@ -166,6 +169,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnstatsetabActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="sendEmail">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Envoyer un Email"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendEmailActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

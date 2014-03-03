@@ -253,22 +253,20 @@ public void insertRec(Reclamation r){
       
       
       
-public int getRecsForGouvEtab(Gouvernorat g,Etablissement e){
+    public int getRecsForGouvEtab(Gouvernorat g,Etablissement e){
         
-        String query = "SELECT count( * ) "
-                +"FROM reclamation r, etablissement e "
-                +" WHERE r.etablissement_id_etablissement = e.id_etablissement "
-                +"AND r.etablissement_id_etablissement =? "
-                +"AND e.gouvernerat =?";
+        String query = "select * from reclamation r,etablissement e "
+                +"where r.etablissement_id_etablissement=e.id_etablissement "
+                +"and e.ville=? ";
         
         int res=0;
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(query);
-            ps.setInt(1, e.getId());
-            ps.setInt(2,g.getIdgouv());
+            ps.setInt(2, e.getId());
+            ps.setInt(1,g.getIdgouv());
             ResultSet resultat = ps.executeQuery();
             
-            if(resultat.next()) {
+            while(resultat.next()) {
                 res=resultat.getInt(1);
             }
             
@@ -284,13 +282,12 @@ public int getRecsForGouvEtab(Gouvernorat g,Etablissement e){
         
         public List<Reclamation> getRecsInfoForGouvEtab(Gouvernorat g,Etablissement e){
                     List<Reclamation> lt = new ArrayList<Reclamation>();
-        String query = "SELECT id_reclamation ,etat,degre_urgence, sujet, date_reclamation, id_citoyen, r.responsable_id_responsable,text, type_reclamation, etablissement_id_etablissement "
-                            +"FROM reclamation r, etablissement e "
-                            +"WHERE r.etablissement_id_etablissement = e.id_etablissement "
-                            +"AND r.etablissement_id_etablissement = ? "
-                            +"AND e.gouvernerat = ? ";
+        String query = "SELECT r. * "
+                        +"FROM reclamation r, citoyen c "
+                        +"WHERE c.id_citoyen = r.id_citoyen "
+                        +"AND r.etablissement_id_etablissement =? "
+                        +"AND c.idgouv =?";
         
-                String re ="select * from reclamation where id_reclamation between 5 and 10";
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(query);
             ps.setInt(1, e.getId());
@@ -311,7 +308,7 @@ public int getRecsForGouvEtab(Gouvernorat g,Etablissement e){
                 r.setType(resultat.getString(9));
                 r.setId_etab(resultat.getInt(10));
                 lt.add(r);
-                System.out.println("empty :/");
+//                System.out.println("empty :/");
             }
             
 

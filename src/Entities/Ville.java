@@ -11,7 +11,17 @@ package Entities;
 public class Ville {
         private int idville;
         private String nomville;
+        private int idgouv;
+        
+    public int getIdgouv() {
+        return idgouv;
+    }
 
+    public void setIdgouv(int idgouv) {
+        this.idgouv = idgouv;
+    }
+
+        
     public int getIdville() {
         return idville;
     }

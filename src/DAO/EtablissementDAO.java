@@ -7,6 +7,7 @@ package DAO;
 import Entities.Etablissement;
 import Entities.Reclamation;
 import Entities.Responsable;
+import Entities.Ville;
 import conn.MyConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,8 +37,7 @@ public class EtablissementDAO {
                 e.setName(resultat.getString(2));
                 e.setType(resultat.getString(3));
                 e.setVille(resultat.getInt(4));
-                e.setGouvernorat(resultat.getInt(5));
-                e.setResp_id(resultat.getInt(6));
+                e.setResp_id(resultat.getInt(5));
                 liste.add(e);
             }
             
@@ -60,13 +60,11 @@ public class EtablissementDAO {
         ResultSet resultat = ps.executeQuery();
         
         while (resultat.next()){
-            
-            e.setName(resultat.getString(2));
+            e.setId(resultat.getInt(1));
             e.setName(resultat.getString(2));
             e.setType(resultat.getString(3));
             e.setVille(resultat.getInt(4));
-            e.setGouvernorat(resultat.getInt(5));
-            e.setResp_id(resultat.getInt(6));
+            e.setResp_id(resultat.getInt(5));
             
         }
         return e;
@@ -92,8 +90,7 @@ public class EtablissementDAO {
             e.setName(resultat.getString(2));
             e.setType(resultat.getString(3));
             e.setVille(resultat.getInt(4));
-            e.setGouvernorat(resultat.getInt(5));
-            e.setResp_id(resultat.getInt(6));
+            e.setResp_id(resultat.getInt(5));
             
         }
         return e;
@@ -120,29 +117,42 @@ public class EtablissementDAO {
                 e.setName(resultat.getString(2));
                 e.setType(resultat.getString(3));
                 e.setVille(resultat.getInt(4));
-                e.setGouvernorat(resultat.getInt(5));
-                e.setResp_id(resultat.getInt(6)); 
-                    
+                e.setResp_id(resultat.getInt(5));     
             }
             return e;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EtablissementDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }  
+      
+  }
+      
+      
+      public Ville getVilleForEtab(Etablissement e){
+          Ville v = new Ville();
+          String query = "select v.* from ville v , etablissement e where v.idville = e.ville and e.id_etablissement = ? ";
+          
+          
+        try {
+            PreparedStatement ps = MyConnection.getInstance().prepareStatement(query);
+            ps.setInt(1, e.getId());
+            ResultSet resultat = ps.executeQuery();
             
+            while(resultat.next())
+            {
+                v.setIdville(resultat.getInt(1));
+                v.setNomville(resultat.getString(2));
+                v.setIdgouv(resultat.getInt(3));
+//                System.out.println("im inside");
+            }
+                return v;
             
         } catch (SQLException ex) {
             Logger.getLogger(EtablissementDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-            
-      
-      
-      
-      
-      
-      
-      
-  }
-      
-      
-      
+      }
       
       
       

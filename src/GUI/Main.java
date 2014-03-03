@@ -57,6 +57,7 @@ public class Main extends javax.swing.JFrame {
         compteresp = new javax.swing.JButton();
         stats2 = new javax.swing.JButton();
         btnstatsetab = new javax.swing.JButton();
+        sendEmail = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administration Tunisian Watch");
@@ -120,6 +121,13 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        sendEmail.setText("Envoyer un Email");
+        sendEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendEmailActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,7 +152,8 @@ public class Main extends javax.swing.JFrame {
                                         .addComponent(stats2)
                                         .addComponent(valide, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
                                         .addComponent(compteci, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(compteresp, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))))
+                                        .addComponent(compteresp, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                    .addComponent(sendEmail))))
                         .addGap(28, 28, 28)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -172,7 +181,9 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(stats2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38)
                         .addComponent(btnstatsetab)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addComponent(sendEmail)
+                        .addGap(54, 54, 54)
                         .addComponent(compteci, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38)
                         .addComponent(compteresp, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -186,6 +197,7 @@ public class Main extends javax.swing.JFrame {
         this.getContentPane().remove(rs);
         this.getContentPane().remove(st);
         this.getContentPane().remove(gs);
+        this.getContentPane().remove(sd);
         this.repaint();
         
         ct.setBounds(rect);
@@ -198,6 +210,7 @@ public class Main extends javax.swing.JFrame {
         this.getContentPane().remove(ct);
         this.getContentPane().remove(rs);
         this.getContentPane().remove(gs);
+        this.getContentPane().remove(sd);
         this.repaint();
         
         st.setBounds(rect);
@@ -211,6 +224,7 @@ public class Main extends javax.swing.JFrame {
         this.getContentPane().remove(ct);
         this.getContentPane().remove(st);
         this.getContentPane().remove(gs);
+        this.getContentPane().remove(sd);
         this.repaint();
         
         rs.setBounds(rect);
@@ -229,6 +243,7 @@ public class Main extends javax.swing.JFrame {
         this.getContentPane().remove(ct);
         this.getContentPane().remove(st);
         this.getContentPane().remove(rs);
+        this.getContentPane().remove(sd);
         this.repaint();
         
         
@@ -251,6 +266,20 @@ public class Main extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 //        this.setBounds(300, 300, 1202, 649);
     }//GEN-LAST:event_formWindowActivated
+
+    private void sendEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendEmailActionPerformed
+        this.getContentPane().remove(ct);
+        this.getContentPane().remove(st);
+        this.getContentPane().remove(rs);
+        this.getContentPane().remove(gs);
+        repaint();
+        
+        sd.setBounds(rect);
+        this.getContentPane().add(sd);
+        this.setVisible(true);
+        sd.afficher();
+        
+    }//GEN-LAST:event_sendEmailActionPerformed
     
     /**
      * @param args the command line arguments
@@ -297,6 +326,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JButton sendEmail;
     private javax.swing.JButton stats2;
     private javax.swing.JButton valide;
     // End of variables declaration//GEN-END:variables
@@ -304,6 +334,7 @@ private CompteCitoyen ct = new CompteCitoyen();
 private CompteResponsable rs = new CompteResponsable();
 private Statistiques st = new Statistiques();
 private stats_gouvernorat gs = new stats_gouvernorat();
+private SendEmails sd = new SendEmails();
 private Rectangle rect = new Rectangle(260, 130, 850, 800);
 
 }

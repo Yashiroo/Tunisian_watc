@@ -13,6 +13,7 @@ import Entities.Etablissement;
 import Entities.Gouvernorat;
 import Entities.Responsable;
 import Entities.Reclamation;
+import Entities.Ville;
 import conn.MyConnection;
 import inst.SampleTableModel;
 import inst.SwingInterop;
@@ -27,7 +28,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import metier.GestionCitoyen;
 import metier.GestionReclamation;
+import metier.GestionResponsable;
 
 /**
  *
@@ -40,7 +43,7 @@ public static String etabName;
                 EtablissementDAO ed = new EtablissementDAO();
                 ReclamationDAO td = new ReclamationDAO();
                 GouvernoratDAO gd = new GouvernoratDAO();
-//            
+                CompteDAO cd = new CompteDAO();
 //            CompteDAO citoyen = new CompteDAO();
 //            Citoyen cc = new Citoyen();
 //            cc.setCin(88888888);
@@ -64,8 +67,13 @@ public static String etabName;
 //            {
 //            System.out.println(e1.getName());
 //            }
-            
+            Ville v = new Ville();
             Etablissement e=ed.findEtablissementById(1);
+//            System.out.println(e.getName());
+            v = ed.getVilleForEtab(e);
+            System.out.println(v.getNomville());
+            
+            
             
 //            List<Reclamation> lt = new ArrayList<Reclamation>();
 //            lt=td.getRecsForEtablissement(e,2,2014);
@@ -76,27 +84,29 @@ public static String etabName;
         
 
         
-        List<Gouvernorat> list = new ArrayList<Gouvernorat>();
-        List<Reclamation> listerec = new ArrayList<Reclamation>();
-        list=gd.getAllGouv();
+//        List<Gouvernorat> list = new ArrayList<Gouvernorat>();
+//        List<Reclamation> listerec = new ArrayList<Reclamation>();
+//        list=gd.getAllGouv();
         
-        e=ed.findEtablissementById(1);
-        for(Gouvernorat g:list){
+//        e=ed.findEtablissementById(1);
+//        for(Gouvernorat g:list){
 //          System.out.println(g.getNomgouv());
-            listerec=td.getRecsInfoForGouvEtab(g,e);
-            for(Reclamation r:listerec){
+//            listerec=td.getRecsInfoForGouvEtab(g,e);
+//            for(Reclamation r:listerec){
 //                System.out.println(r.getDate_rec());
-            }
-        }
-        Gouvernorat g = new Gouvernorat();
-        g.setIdgouv(1);
+//            }
+//        }
+//        Gouvernorat g = new Gouvernorat();
+//        g.setIdgouv(1);
         
-        listerec=td.getRecsInfoForGouvEtab(g,e);
-        GestionReclamation grec = new GestionReclamation();
+//        listerec=td.getRecsInfoForGouvEtab(g,e);
+//        GestionReclamation grec = new GestionReclamation();
+//        System.out.println((listerec.size()));
 //        System.out.println(grec.getRecResolues(listerec));
+//        System.out.println(grec.getRecNonResolues(listerec));
         
-        
-        System.out.println(listerec.size());
+
+//        System.out.println(listerec.size());
 //        for(Reclamation r:listerec){
 //            System.out.println(r.getDate_rec());}
 //            
@@ -104,7 +114,7 @@ public static String etabName;
         //System.out.println(gd.getAllGouvRec(g));
 //        Responsable r = new Responsable();
 //        r.setId(1);
-        //System.out.println(ed.getEtab(r).getName());
+//        System.out.println(ed.getEtab(r).getName());
         
         
 //        Object[] res=getStatsByEtabByMonthByYear.afficherTotalRec(e, 2, 2014);
@@ -160,12 +170,12 @@ public static String etabName;
         
                 /**********************************************************************************/
         
-        
-        
-        
-        
-        
-        
+//        GestionCitoyen gr = new GestionCitoyen();
+//        String[] ar = gr.getEmails();
+//        
+//        for(String s:ar){
+//            System.out.println(s);
+//        }
         
 }
 }

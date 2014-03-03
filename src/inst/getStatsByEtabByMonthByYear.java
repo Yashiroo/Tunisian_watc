@@ -59,7 +59,7 @@ public class getStatsByEtabByMonthByYear {
             EtablissementDAO ed = new EtablissementDAO();
             ReclamationDAO td = new ReclamationDAO();
             int m=1;
-            totalrec[0]="Réclamations Traitées";
+            totalrec[0]="Réclamations Résolues";
             for(int i=1;i<13;i++)
             {
                 
@@ -84,7 +84,7 @@ public class getStatsByEtabByMonthByYear {
             EtablissementDAO ed = new EtablissementDAO();
             ReclamationDAO td = new ReclamationDAO();
             int m=1;
-            totalrec[0]="Réclamations Non Traitées";
+            totalrec[0]="Réclamations Non Résolues";
             for(int i=1;i<13;i++)
             {
                 

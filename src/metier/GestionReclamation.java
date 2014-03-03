@@ -38,7 +38,17 @@ public class GestionReclamation {
         
         return res;
     }
-    
+    public int getTotalRec(List<Reclamation> l){
+        int res=0;
+        
+        res=l.size();
+        return res;
+        
+        
+        
+        
+        
+    }
     
     
 }
