@@ -26,7 +26,7 @@ public class EtablissementDAO {
         public List<Etablissement> getAllEtab(){
     
                   List<Etablissement> liste = new ArrayList<Etablissement>();
-                  String query = "select * from etablissement";
+                  String query = "select id_etablissement,name,type,ville from etablissement";
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(query);
             ResultSet resultat = ps.executeQuery();
@@ -37,7 +37,6 @@ public class EtablissementDAO {
                 e.setName(resultat.getString(2));
                 e.setType(resultat.getString(3));
                 e.setVille(resultat.getInt(4));
-                e.setResp_id(resultat.getInt(5));
                 liste.add(e);
             }
             
@@ -52,7 +51,7 @@ public class EtablissementDAO {
         
   public Etablissement findEtablissementById(int num){
         Etablissement e = new Etablissement();
-        String requete = "select * from etablissement where id_etablissement=?";
+        String requete = "select id_etablissement,name,type,ville from etablissement where id_etablissement=?";
 
         try{
         PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
@@ -64,7 +63,6 @@ public class EtablissementDAO {
             e.setName(resultat.getString(2));
             e.setType(resultat.getString(3));
             e.setVille(resultat.getInt(4));
-            e.setResp_id(resultat.getInt(5));
             
         }
         return e;
@@ -77,7 +75,7 @@ public class EtablissementDAO {
  
     public Etablissement findEtablissementByName(String name){
         Etablissement e = new Etablissement();
-        String requete = "select * from etablissement where name=?";
+        String requete = "select id_etablissement,name,type,ville from etablissement where name=?";
 
         try{
         PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
@@ -90,7 +88,6 @@ public class EtablissementDAO {
             e.setName(resultat.getString(2));
             e.setType(resultat.getString(3));
             e.setVille(resultat.getInt(4));
-            e.setResp_id(resultat.getInt(5));
             
         }
         return e;
@@ -105,7 +102,7 @@ public class EtablissementDAO {
 
   public Etablissement getEtab(Responsable r){
             Etablissement e = new Etablissement();
-            String query = "select * from etablissement where responsable_id_responsable=?";
+            String query = "select id_etablissement,name,type,ville from etablissement where responsable_id_responsable=?";
             
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(query);
@@ -117,7 +114,6 @@ public class EtablissementDAO {
                 e.setName(resultat.getString(2));
                 e.setType(resultat.getString(3));
                 e.setVille(resultat.getInt(4));
-                e.setResp_id(resultat.getInt(5));     
             }
             return e;
 

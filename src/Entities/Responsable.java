@@ -19,9 +19,9 @@ public class Responsable{
     private String adresse;
     private String login;
     private String adresse_email;
-    private String etablissement;
     private int phone;
     private int status;
+    private int id_etablissement;
 
     public int getStatus() {
         return status;
@@ -51,17 +51,6 @@ public class Responsable{
     public void setCin(int cin) {
         this.cin = cin;
     }
-    
-        public String getEtablissement() {
-        return etablissement;
-    }
-
-    public void setEtablissement(String etablissement) {
-        this.etablissement = etablissement;
-    }
-    
-    
-
 
     public String getNom() {
         return nom;
@@ -103,11 +92,11 @@ public class Responsable{
         this.login = login;
     }
 
-    public String getAdress_mail() {
+    public String getAdresse_email() {
         return adresse_email;
     }
 
-    public void setAdress_mail(String adress_mail) {
+    public void setAdresse_email(String adress_mail) {
         this.adresse_email = adress_mail;
     }
     public int getId() {
@@ -116,6 +105,14 @@ public class Responsable{
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getId_etablissement() {
+        return id_etablissement;
+    }
+
+    public void setId_etablissement(int id_etablissement) {
+        this.id_etablissement = id_etablissement;
     }
 
     
@@ -146,7 +143,7 @@ public class Responsable{
     
     @Override
     public String toString() {
-        return "Responsable : " +nom+" "+prenom+ "\nEtablissment=" + etablissement;
+        return "Responsable : " +nom+" "+prenom+ "\n" ;
     }
     @Override
     public int hashCode() {

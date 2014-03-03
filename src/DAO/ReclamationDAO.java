@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -113,7 +114,7 @@ public void insertRec(Reclamation r){
                   String query = "SELECT * FROM reclamation WHERE etablissement_id_etablissement = ? AND month(date_reclamation) = ? AND year(date_reclamation)=?";
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(query);
-            ps.setInt(1, e.getResp_id());
+            ps.setInt(1, e.getId());
             ps.setInt(2,month);
             ps.setInt(3,year);
             
@@ -127,10 +128,9 @@ public void insertRec(Reclamation r){
                 t.setSujet(resultat.getString(4));
                 t.setDate_rec(resultat.getString(5));
                 t.setId_cit(resultat.getInt(6));
-                t.setId_resp(resultat.getInt(7));
-                t.setText(resultat.getString(8));
-                t.setType(resultat.getString(9));
-                t.setId_etab(resultat.getInt(10));
+                t.setText(resultat.getString(7));
+                t.setType(resultat.getString(8));
+                t.setId_etab(resultat.getInt(9));
                 liste.add(t);
                 
             }
@@ -150,7 +150,7 @@ public void insertRec(Reclamation r){
                   String query = "SELECT * FROM reclamation WHERE etablissement_id_etablissement = ?";
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(query);
-            ps.setInt(1, e.getResp_id());
+            ps.setInt(1, e.getId());
             
             ResultSet resultat = ps.executeQuery();
             
@@ -162,10 +162,9 @@ public void insertRec(Reclamation r){
                 t.setSujet(resultat.getString(4));
                 t.setDate_rec(resultat.getString(5));
                 t.setId_cit(resultat.getInt(6));
-                t.setId_resp(resultat.getInt(7));
-                t.setText(resultat.getString(8));
-                t.setType(resultat.getString(9));
-                t.setId_etab(resultat.getInt(10));
+                t.setText(resultat.getString(7));
+                t.setType(resultat.getString(8));
+                t.setId_etab(resultat.getInt(9));
                 liste.add(t);
                 
             }
@@ -303,10 +302,9 @@ public void insertRec(Reclamation r){
                 r.setSujet(resultat.getString(4));
                 r.setDate_rec(resultat.getString(5));
                 r.setId_cit(resultat.getInt(6));
-                r.setId_resp(resultat.getInt(7));
-                r.setText(resultat.getString(8));
-                r.setType(resultat.getString(9));
-                r.setId_etab(resultat.getInt(10));
+                r.setText(resultat.getString(7));
+                r.setType(resultat.getString(8));
+                r.setId_etab(resultat.getInt(9));
                 lt.add(r);
 //                System.out.println("empty :/");
             }
@@ -367,5 +365,138 @@ public int getAllGouvRecNonResolues(Gouvernorat g){
         }
   
 }
+
+
+     public List<Vector> selectAllReclamation(){
+                List<Vector> listeresp = new ArrayList<Vector>();
+                
+                String requete = "SELECT id_reclamation,sujet,degre_urgence,etat,citoyen.login FROM   citoyen INNER JOIN reclamation ON reclamation.id_citoyen =citoyen.id_citoyen";
+                
+        try {
+            Statement statement = MyConnection.getInstance().createStatement();
+            ResultSet resultat = statement.executeQuery(requete);
+            //Responsable r = new Responsable();
+            
+            
+            while(resultat.next()){
+                Vector v=new Vector();
+                v.add(0,resultat.getString(1));
+                v.add(1,resultat.getString(2));
+                v.add(2,resultat.getString(3));
+                v.add(3,resultat.getString(4)); 
+                v.add(4,resultat.getString(5));
+                
+                  
+                  
+            listeresp.add(v);
+            }   
+
+            //System.out.println("Responsables Affichés");
+          return listeresp;  
+        
+        } catch (SQLException ex) {
+           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erreur lors de la selection des reclamation : "+ex.getMessage());
+            return null;
+        }
+    }
+
+
+public List<Vector> selectAllReclamationTraité(){
+                    List<Vector> listeresp = new ArrayList<Vector>();
+                
+                String requete = "SELECT id_reclamation,sujet,degre_urgence,etat,citoyen.login FROM   citoyen INNER JOIN reclamation ON reclamation.id_citoyen =citoyen.id_citoyen where etat='traité'" ;
+                
+        try {
+            Statement statement = MyConnection.getInstance().createStatement();
+            ResultSet resultat = statement.executeQuery(requete);
+            //Responsable r = new Responsable();
+            
+            
+            while(resultat.next()){
+                Vector v=new Vector();
+                
+                
+                  v.add(0,resultat.getString(1));
+                v.add(1,resultat.getString(2));
+                v.add(2,resultat.getString(3));
+                  v.add(3,resultat.getString(4)); 
+                  v.add(4,resultat.getString(5));
+                
+                  
+            listeresp.add(v);
+            }   
+
+            //System.out.println("Responsables Affichés");
+          return listeresp;  
+        
+        } catch (SQLException ex) {
+           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erreur lors de la selection des reclamation : "+ex.getMessage());
+            return null;
+        }
+    }
+      public List<Vector> selectAllReclamationNonTraité(){
+                    List<Vector> listeresp = new ArrayList<Vector>();
+                
+                String requete = "SELECT id_reclamation,sujet,degre_urgence,etat,citoyen.login FROM   citoyen INNER JOIN reclamation ON reclamation.id_citoyen =citoyen.id_citoyen where etat="+"'non_traité'" ;
+                
+        try {
+            Statement statement = MyConnection.getInstance().createStatement();
+            ResultSet resultat = statement.executeQuery(requete);
+            //Responsable r = new Responsable();
+            
+            
+            while(resultat.next()){
+                Vector v=new Vector();
+          v.add(0,resultat.getString(1));
+                v.add(1,resultat.getString(2));
+                v.add(2,resultat.getString(3));
+                  v.add(3,resultat.getString(4)); 
+                  v.add(4,resultat.getString(5));
+                
+                  
+                  
+            listeresp.add(v);
+            }   
+
+            //System.out.println("Responsables Affichés");
+          return listeresp;  
+        
+        } catch (SQLException ex) {
+           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erreur lors de la selection des reclamation : "+ex.getMessage());
+            return null;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

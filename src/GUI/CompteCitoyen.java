@@ -4,14 +4,16 @@
  */
 package GUI;
 
-import DAO.CompteDAO;
+import DAO.CitoyenDAO;
 import Entities.Citoyen;
-import Entities.Responsable;
+import conn.MyConnection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -19,8 +21,11 @@ import javax.swing.table.DefaultTableModel;
  * @author Yashiro
  */
 public class CompteCitoyen extends javax.swing.JPanel {
-
-    /**
+//
+//    CitoyenDAO cd=new CitoyenDAO();
+//    List<Citoyen> liste=cd.getAllCitoyens();
+//    TableModelClient model1=new TableModelClient(liste);
+   /**
      * Creates new form statistiques
      */
     public CompteCitoyen() {
@@ -47,19 +52,10 @@ public class CompteCitoyen extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("Citoyens");
+        jLabel1.setText("     Citoyens");
 
-        tableCitoyens.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
         jScrollPane1.setViewportView(tableCitoyens);
 
-        btnActiver.setText("jButton1");
         btnActiver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActiverActionPerformed(evt);
@@ -74,36 +70,50 @@ public class CompteCitoyen extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 825, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 816, Short.MAX_VALUE)
+                        .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnActiver)
-                .addGap(41, 41, 41))
+                .addComponent(btnActiver, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnActiver)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(btnActiver, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-
     }//GEN-LAST:event_formComponentShown
 
     private void btnActiverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActiverActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnActiverActionPerformed
+   
 
+        String s = tableCitoyens.getValueAt(tableCitoyens.getSelectedRow(), 6).toString();
+
+        if (s.equals("Actif")) {
+            System.out.println(tableCitoyens.getValueAt(tableCitoyens.getSelectedRow(), 6));
+            desactiver_citoyen();
+            afficher();
+           
+
+        }
+        if (s.equals("Non Actif")) {
+            System.out.println(tableCitoyens.getValueAt(tableCitoyens.getSelectedRow(), 6));
+            activer_citoyen();
+             afficher();
+
+        }
+    }//GEN-LAST:event_btnActiverActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActiver;
     private javax.swing.JLabel jLabel1;
@@ -111,83 +121,108 @@ public class CompteCitoyen extends javax.swing.JPanel {
     private javax.swing.JTable tableCitoyens;
     // End of variables declaration//GEN-END:variables
 
-public void afficher(){
-        CompteDAO cit = new CompteDAO();
+    public void afficher() {
+        CitoyenDAO cit = new CitoyenDAO();
         List<Citoyen> listcit = new ArrayList<Citoyen>();
-        listcit= cit.getAllCitoyens();
-        String[] colName = new String[] {
-           "Pseudo", "Nom", "Prénom", "Email", "Téléphone", "Etat"
-            };
-        
+        listcit = cit.getAllCitoyens();
+        String[] colName = new String[]{
+            "Pseudo", "Nom", "Prénom", "cin", "Email", "Téléphone", "Etat"
+        };
+
         DefaultTableModel model = new DefaultTableModel(colName, WIDTH);
+   
+
         tableCitoyens.setModel(model);
         
-        int i=0;
-        int j=0;
-        String status="Inconnu";
-        for(Citoyen c:listcit)
-        {
-                if(c.getStatus()==1)
-                    status="Actif";
-                else if(c.getStatus()==0)
-                    status="Non Actif";
-                model.addRow(new Object[]{"", "", ""});
-                
-                
-                tableCitoyens.getModel().setValueAt(c.getLogin(),i,j);
-                tableCitoyens.getModel().setValueAt(c.getNom(),i,j+1);
-                tableCitoyens.getModel().setValueAt(c.getPrenom(),i,j+2);
-                tableCitoyens.getModel().setValueAt(c.getAdress_mail(),i,j+3);
-                tableCitoyens.getModel().setValueAt(c.getPhone(),i,j+4);
-                
-                tableCitoyens.getModel().setValueAt(status,i,j+5);
-            
-           i+=1;
-           //j+=1;
-            
-        }
-        model.removeRow(tableCitoyens.getRowCount()-1);
-        
-        //DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
-        //leftRenderer.setHorizontalAlignment( JLabel.CENTER );
-        //tableResponsables.getColumnModel().getColumn(0).setCellRenderer( leftRenderer );
-        //leftRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        desactiver();
 
-}
+        int i = 0;
+        int j = 0;
+        String status = "Inconnu";
+        for (Citoyen c : listcit) {
+            if (c.getStatus() == 1) {
+                status = "Actif";
+            } else if (c.getStatus() == 0) {
+                status = "Non Actif";
+            }
+            model.addRow(new Object[]{"", "", ""});
 
-public void desactiver(){
-    tableCitoyens.addMouseListener(new java.awt.event.MouseAdapter() {
-    @Override
-    public void mouseClicked(java.awt.event.MouseEvent evt) {
-        int row = tableCitoyens.rowAtPoint(evt.getPoint());
-        int col = tableCitoyens.columnAtPoint(evt.getPoint());
-        if (row >=0 && col >=0) {
-            
-            
-            if(tableCitoyens.getValueAt(tableCitoyens.getSelectedRow(), 5) == "Actif")
-                btnActiver.setText("Désactiver");
-            else if(tableCitoyens.getValueAt(tableCitoyens.getSelectedRow(), 5) == "Non Actif")
-                btnActiver.setText("Activer");
-            
+
+            tableCitoyens.getModel().setValueAt(c.getLogin(), i, j);
+            tableCitoyens.getModel().setValueAt(c.getNom(), i, j + 1);
+            tableCitoyens.getModel().setValueAt(c.getPrenom(), i, j + 2);
+            tableCitoyens.getModel().setValueAt(c.getCin(), i, j + 3);
+            tableCitoyens.getModel().setValueAt(c.getAdress_mail(), i, j + 4);
+            tableCitoyens.getModel().setValueAt(c.getPhone(), i, j + 5);
+
+            tableCitoyens.getModel().setValueAt(status, i, j + 6);
+
+            i += 1;
+
         }
+       
+         model.removeRow(tableCitoyens.getRowCount() - 1);
+       
+          TextButton();
     }
-});
+
+    public void TextButton() {
+        tableCitoyens.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+
+                int row = tableCitoyens.rowAtPoint(evt.getPoint());
+                int col = tableCitoyens.columnAtPoint(evt.getPoint());
+               // model1.isCellEditable(row, col);
+                if (row >= 0 && col >= 0) {
+                    String s = tableCitoyens.getValueAt(tableCitoyens.getSelectedRow(), 6).toString();
+                    switch (s) {
+                        case "Actif":
+                            btnActiver.setText("Désactiver");
+                            break;
+                        case "Non Actif":
+                            btnActiver.setText("Activer");
+                            break;
+                    }
 
 
-}
+                }
+            }
+        });
+    }
+
+    public void activer_citoyen() {
+        CitoyenDAO c = new CitoyenDAO();
+        // Citoyen cc1=tableCitoyens.getValueAt(tableCitoyens.getSelectedRow(),tab)
+        int x = Integer.parseInt(tableCitoyens.getValueAt(tableCitoyens.getSelectedRow(), 3).toString());
+
+
+        Citoyen cc;
+        cc = c.findCitoyentByCin(x);
+        System.out.println("5edmet el find :p");
+        System.out.println(cc.getCin());
+        c.activerCitoyen(cc);
 
 
 
 
 
+    }
+
+    public void desactiver_citoyen() {
+        CitoyenDAO c = new CitoyenDAO();
+    
+        int x = Integer.parseInt(tableCitoyens.getValueAt(tableCitoyens.getSelectedRow(), 3).toString());
 
 
+        Citoyen cc;
+        cc = c.findCitoyentByCin(x);
+        System.out.println("5edmet el find mta3 desactiver :p");
+      
+        c.desactiverCitoyen(cc);
 
+    }
 
+    
 
-
-
-
-}
+    }
 

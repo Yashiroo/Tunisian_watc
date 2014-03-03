@@ -4,7 +4,7 @@
  */
 package metier;
 
-import DAO.CompteDAO;
+import DAO.ResponsableDAO;
 import Entities.Responsable;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +20,14 @@ public class GestionResponsable {
     
     public String[] getEmails(){
 //            System.out.println("i am getting emails");
-            CompteDAO cd = new CompteDAO();
+            ResponsableDAO cd = new ResponsableDAO();
             List<Responsable> lt = new ArrayList<Responsable>();
             lt=cd.selectAllResponsables();
             String[] res = new String[lt.size()];
             int i=0;
             for(Responsable r:lt){
 
-                res[i]=(r.getAdress_mail());
+                res[i]=(r.getAdresse_email());
                 i+=1;
                 
                 }

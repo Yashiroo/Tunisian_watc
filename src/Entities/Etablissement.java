@@ -14,7 +14,6 @@ public class Etablissement {
             private int ville;
             private String type;
             private int gouvernorat;
-            private int resp_id;
 
     public int getId() {
         return id;
@@ -54,14 +53,6 @@ public class Etablissement {
 
     public void setGouvernorat(int gouvernorat) {
         this.gouvernorat = gouvernorat;
-    }
-
-    public int getResp_id() {
-        return resp_id;
-    }
-
-    public void setResp_id(int resp_id) {
-        this.resp_id = resp_id;
     }
 
     public Etablissement() {

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package inst;
+package metier;
 
 import DAO.EtablissementDAO;
 import DAO.ReclamationDAO;
@@ -12,8 +12,9 @@ import Entities.Etablissement;
  *
  * @author Yashiro
  */
-public class getStatsByEtabByMonthByYear {
+public class GestionEtablissement {
     
+
         public static void main(String[] args) {
 //            EtablissementDAO ed = new EtablissementDAO();
 //            Etablissement etab=ed.findEtablissementById(2);
@@ -101,8 +102,6 @@ public class getStatsByEtabByMonthByYear {
              }
             return totalrec;
 }
-
-
         
         
         }

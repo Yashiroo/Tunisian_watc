@@ -30,7 +30,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package inst;
+package GUI;
 
 import DAO.EtablissementDAO;
 import Entities.Etablissement;
@@ -42,27 +42,12 @@ import java.awt.HeadlessException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-
-import javafx.embed.swing.JFXPanel;
-
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.Side;
-import javafx.geometry.VPos;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -72,25 +57,15 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 import javax.swing.*;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 
 /**
- * SwingInterop2
+ * SwingInterop
  *
  * Note using the browser might require setting the properties
  *  - http.proxyHost
@@ -99,20 +74,18 @@ import javax.swing.table.DefaultTableModel;
  * e.g. -Dhttp.proxyHost=webcache.mydomain.com -Dhttp.proxyPort=8080
  * 
  */
-public class SwingInterop2 extends JFrame {
-
+public class SwingInterop extends JFrame {
+//    ComboBox<Etablissement> comboBox;
     
     private static final int PANEL_WIDTH_INT = 1100;
     private static final int PANEL_HEIGHT_INT = 460;
     private static final int TABLE_PANEL_HEIGHT_INT = 100;
     public static JFXPanel chartFxPanel;
-//    private static JFXPanel browserFxPanel;
 //    private static JFXPanel comboBox;
-    private static SampleTableModel2 tableModel;
+    private static SampleTableModel tableModel;
     public  Chart chart;
     private JTable table;
     private JTable table2;
-    private Pane browser;
     private GridPane cm;
     public static JPanel panel = new JPanel();
         final Button button = new Button ("Afficher");
@@ -131,7 +104,7 @@ public class SwingInterop2 extends JFrame {
 
                 
                 
-                JFrame frame = new SwingInterop2();
+                JFrame frame = new SwingInterop();
 //                "Statistiques réclamations par Etablissement"
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 
@@ -140,7 +113,7 @@ public class SwingInterop2 extends JFrame {
                 frame.setVisible(true);
     }
 
-    public SwingInterop2() throws HeadlessException {
+    public SwingInterop() throws HeadlessException {
         init();
     }
 
@@ -189,7 +162,7 @@ public class SwingInterop2 extends JFrame {
                 if (e.getType() == TableModelEvent.UPDATE) {
                     final int row = e.getFirstRow();
                     final int column = e.getColumn();
-                    final Object value = ((SampleTableModel2) e.getSource()).getValueAt(row, column);
+                    final Object value = ((SampleTableModel) e.getSource()).getValueAt(row, column);
                     
                     Platform.runLater(new Runnable() {
                         public void run() {
@@ -232,12 +205,10 @@ public class SwingInterop2 extends JFrame {
     
     
     public GridPane combo(){
-        
-
 //        this.setTitle("Selection d'un Etablissement");
 //        Scene scene = new Scene(new Group());
         
-
+        
         EtablissementDAO et = new EtablissementDAO();
         List<Etablissement> lt = new ArrayList<Etablissement>();
         lt=et.getAllEtab();
@@ -256,7 +227,7 @@ public class SwingInterop2 extends JFrame {
 //                            ini();
 //                          tableModel = new SampleTableModel(etabComboBox.getValue().toString());
                           etabName=etabComboBox.getValue().toString();
-                          tableModel = new SampleTableModel2();
+                          tableModel = new SampleTableModel();
                           table2 = new JTable(tableModel);
                           
                           int rows = table.getRowCount()-1;
@@ -355,7 +326,7 @@ public class SwingInterop2 extends JFrame {
         
         
         
-        tableModel = new SampleTableModel2();
+        tableModel = new SampleTableModel();
 //        tableModel.setName("STEG");
         
 //        etab.setId(1);
@@ -373,14 +344,11 @@ public class SwingInterop2 extends JFrame {
     
     panel.setLayout(new BorderLayout());
 
-    //JTable
-//    tableModel.updateTableContent("STEG");
      table = new JTable(tableModel);
-     
-     
+
     table.setAutoCreateRowSorter(true);
     table.setGridColor(Color.DARK_GRAY);
-    SwingInterop2.DecimalFormatRenderer renderer = new SwingInterop2.DecimalFormatRenderer();
+    SwingInterop.DecimalFormatRenderer renderer = new SwingInterop.DecimalFormatRenderer();
     renderer.setHorizontalAlignment(JLabel.LEFT);
     for (int i = 0; i < table.getColumnCount(); i++) {
         table.getColumnModel().getColumn(i).setCellRenderer(renderer);
@@ -396,7 +364,6 @@ public class SwingInterop2 extends JFrame {
     panel.add(chartTablePanel, BorderLayout.CENTER);
     panel.add(tablePanel, BorderLayout.SOUTH);
     table.getColumnModel().getColumn(0).setMinWidth(150); // reclamations
-//    panel.add(comboBox, rootPane);
     add(panel, BorderLayout.CENTER);
     
 

@@ -4,25 +4,8 @@
  */
 package GUI;
 
-import DAO.CompteDAO;
-import Entities.Responsable;
-import conn.MyConnection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
-import GUI.CompteResponsable;
-import inst.SwingInterop;
-import java.awt.BorderLayout;
-import java.awt.Paint;
 import java.awt.Rectangle;
-import javax.swing.JApplet;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  *
@@ -48,6 +31,7 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
@@ -70,15 +54,23 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/Untitled-2..png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1078, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(122, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -134,7 +126,7 @@ public class Main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 124, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +173,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(stats2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(38, 38, 38)
                         .addComponent(btnstatsetab)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                         .addComponent(sendEmail)
                         .addGap(54, 54, 54)
                         .addComponent(compteci, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -194,7 +186,7 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void compteciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compteciActionPerformed
-        this.getContentPane().remove(rs);
+//        this.getContentPane().remove(rs);
         this.getContentPane().remove(st);
         this.getContentPane().remove(gs);
         this.getContentPane().remove(sd);
@@ -203,12 +195,12 @@ public class Main extends javax.swing.JFrame {
         ct.setBounds(rect);
         this.getContentPane().add(ct);
         this.setVisible(true);
-        ct.afficher();
+//        ct.afficher();
     }//GEN-LAST:event_compteciActionPerformed
         
     private void valideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valideActionPerformed
         this.getContentPane().remove(ct);
-        this.getContentPane().remove(rs);
+//        this.getContentPane().remove(rs);
         this.getContentPane().remove(gs);
         this.getContentPane().remove(sd);
         this.repaint();
@@ -227,10 +219,10 @@ public class Main extends javax.swing.JFrame {
         this.getContentPane().remove(sd);
         this.repaint();
         
-        rs.setBounds(rect);
-        this.getContentPane().add(rs);
+//        rs.setBounds(rect);
+//        this.getContentPane().add(rs);
         this.setVisible(true);
-        rs.afficher();
+//        rs.afficher();
         
         
     }//GEN-LAST:event_compterespActionPerformed
@@ -242,7 +234,7 @@ public class Main extends javax.swing.JFrame {
     private void stats2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stats2ActionPerformed
         this.getContentPane().remove(ct);
         this.getContentPane().remove(st);
-        this.getContentPane().remove(rs);
+//        this.getContentPane().remove(rs);
         this.getContentPane().remove(sd);
         this.repaint();
         
@@ -270,7 +262,7 @@ public class Main extends javax.swing.JFrame {
     private void sendEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendEmailActionPerformed
         this.getContentPane().remove(ct);
         this.getContentPane().remove(st);
-        this.getContentPane().remove(rs);
+//        this.getContentPane().remove(rs);
         this.getContentPane().remove(gs);
         repaint();
         
@@ -322,6 +314,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton compteci;
     private javax.swing.JButton compteresp;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -330,8 +323,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton stats2;
     private javax.swing.JButton valide;
     // End of variables declaration//GEN-END:variables
-private CompteCitoyen ct = new CompteCitoyen();
-private CompteResponsable rs = new CompteResponsable();
+private Compte_citoyen ct = new Compte_citoyen();
+//private Compte_responsable rs = new Compte_responsable();
 private Statistiques st = new Statistiques();
 private stats_gouvernorat gs = new stats_gouvernorat();
 private SendEmails sd = new SendEmails();

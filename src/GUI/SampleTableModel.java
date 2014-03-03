@@ -30,7 +30,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package inst;
+package GUI;
 
 
 import DAO.EtablissementDAO;
@@ -43,6 +43,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.chart.BarChart;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import metier.GestionEtablissement;
 import tests.SelectResponsables;
 
 /**
@@ -60,7 +61,7 @@ public class SampleTableModel extends AbstractTableModel {
     
     private Object[][] data = {
             
-            getStatsByEtabByMonthByYear.afficherTotalRec(e,1,2014),getStatsByEtabByMonthByYear.afficherRecTraitees(e,1,2014),getStatsByEtabByMonthByYear.afficherRecNonTraitees(e,1,2014)
+            GestionEtablissement.afficherTotalRec(e,1,2014),GestionEtablissement.afficherRecTraitees(e,1,2014),GestionEtablissement.afficherRecNonTraitees(e,1,2014)
            
         };
 

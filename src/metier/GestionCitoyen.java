@@ -4,7 +4,7 @@
  */
 package metier;
 
-import DAO.CompteDAO;
+import DAO.CitoyenDAO;
 import Entities.Citoyen;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class GestionCitoyen {
     
     public String[] getEmails(){
 //            System.out.println("i am getting emails");
-            CompteDAO cd = new CompteDAO();
+            CitoyenDAO cd = new CitoyenDAO();
             List<Citoyen> lt = new ArrayList<Citoyen>();
             lt=cd.getAllCitoyens();
             String[] res = new String[lt.size()];
