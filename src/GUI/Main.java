@@ -328,6 +328,6 @@ private CompteResponsable rs = new CompteResponsable();
 private Statistiques st = new Statistiques();
 private stats_gouvernorat gs = new stats_gouvernorat();
 private SendEmails sd = new SendEmails();
-private Rectangle rect = new Rectangle(260, 130, 850, 800);
+private Rectangle rect = new Rectangle(280, 160, 850, 800);
 
 }
