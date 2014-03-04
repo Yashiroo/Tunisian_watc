@@ -6,8 +6,12 @@ package GUI;
 
 import DAO.ResponsableDAO;
 import Entities.Responsable;
+import conn.MyConnection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,6 +26,40 @@ public class CompteResponsable extends javax.swing.JPanel {
      */
     public CompteResponsable() {
         initComponents();
+                ResponsableDAO RES = new ResponsableDAO();
+        List<Responsable> listRES = new ArrayList<Responsable>();
+        listRES=RES.selectAllResponsables();
+        String[] colName = new String[] {
+           "cin", "Nom", "Prénom"
+            };
+
+        DefaultTableModel model = new DefaultTableModel(colName, WIDTH);
+        tableResponsables.setModel(model);
+        
+        int i=0;
+        int j=0;
+       
+        for(Responsable c:listRES)
+        {
+               // if(c.getStatus()==1)
+                //    status="Actif";
+              //  else if(c.getStatus()==0)
+                 //   status="Non Actif";
+                model.addRow(new Object[]{"", "", ""});
+                
+                
+               tableResponsables.getModel().setValueAt(c.getCin(),i,j);
+                tableResponsables.getModel().setValueAt(c.getNom(),i,j+1);
+                tableResponsables.getModel().setValueAt(c.getPrenom(),i,j+2);
+                //tableCitoyens.getModel().setValueAt(c.getAdress_mail(),i,j+3);
+              //  tableCitoyens.getModel().setValueAt(c.getPhone(),i,j+4);
+                
+               // tableCitoyens.getModel().setValueAt(status,i,j+5);
+            
+           i+=1;
+           //j+=1;
+            
+        }
     }
 
     /**
@@ -37,6 +75,7 @@ public class CompteResponsable extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableResponsables = new javax.swing.JTable();
         btnDesactiver = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
@@ -77,6 +116,13 @@ public class CompteResponsable extends javax.swing.JPanel {
             }
         });
 
+        jButton1.setText("Supprimer");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,6 +137,8 @@ public class CompteResponsable extends javax.swing.JPanel {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(29, 29, 29)
                 .addComponent(btnDesactiver, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37))
         );
@@ -102,7 +150,9 @@ public class CompteResponsable extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDesactiver)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDesactiver)
+                    .addComponent(jButton1))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -202,6 +252,40 @@ public class CompteResponsable extends javax.swing.JPanel {
     private void tableResponsablesFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tableResponsablesFocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_tableResponsablesFocusLost
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        String requete = "delete from Responsable where cin=?";
+        try {
+
+           JOptionPane.showConfirmDialog(null, "is delete");
+               DefaultTableModel model=(DefaultTableModel) tableResponsables.getModel();
+   if (tableResponsables.getSelectedRow()==-1)
+   {
+       if (tableResponsables.getRowCount()==0)
+       {
+           JOptionPane.showMessageDialog(null, "is empty");
+       }
+       else{
+             JOptionPane.showMessageDialog(null, "you must select a row");
+         
+       }
+       
+   }
+   else {
+            int row = tableResponsables.getSelectedRow();
+            int col =tableResponsables.getSelectedColumn();
+            int data = (int)tableResponsables.getValueAt(row,3);
+            PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
+            ps.setInt(1,data);
+            ps.executeUpdate();
+       model.removeRow(tableResponsables.getSelectedRow());
+       
+   }
+        } catch (SQLException ex) {
+           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "NO");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
     public void activer_responsable() {
         ResponsableDAO r = new ResponsableDAO();
         int x = Integer.parseInt(tableResponsables.getValueAt(tableResponsables.getSelectedRow(), 3).toString());
@@ -234,6 +318,7 @@ public class CompteResponsable extends javax.swing.JPanel {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDesactiver;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableResponsables;

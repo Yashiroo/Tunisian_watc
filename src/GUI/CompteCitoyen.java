@@ -175,27 +175,30 @@ public class CompteCitoyen extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
                 String requete = "delete from Citoyen where cin=?";
         try {
+            
+           int response = JOptionPane.showConfirmDialog(null, "vous voulez supprimer ?");
+               DefaultTableModel model=(DefaultTableModel) tableCitoyens.getModel();
+               System.out.print(response);
+   if (tableCitoyens.getSelectedRow()==-1)
+   {
+       
+       if (tableCitoyens.getRowCount()==0)
+       {
+           JOptionPane.showMessageDialog(null, "is empty");
+       }
+       
+       else{
+             JOptionPane.showMessageDialog(null, "you must select a row");
+         
+       }
+   }
+   else {
             int row = tableCitoyens.getSelectedRow();
             int col =tableCitoyens.getSelectedColumn();
             int data = (int)tableCitoyens.getValueAt(row,3);
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
             ps.setInt(1,data);
             ps.executeUpdate();
-           JOptionPane.showMessageDialog(null, "vous voulez supprimer ?");
-               DefaultTableModel model=(DefaultTableModel) tableCitoyens.getModel();
-   if (tableCitoyens.getSelectedRow()==-1)
-   {
-       if (tableCitoyens.getRowCount()==0)
-       {
-           JOptionPane.showMessageDialog(null, "is empty");
-       }
-       else{
-             JOptionPane.showMessageDialog(null, "you must select a row");
-         
-       }
-       
-   }
-   else {
        model.removeRow(tableCitoyens.getSelectedRow());
        
    }

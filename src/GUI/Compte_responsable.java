@@ -33,7 +33,7 @@ public class Compte_responsable extends javax.swing.JPanel {
      */
     public Compte_responsable() {
         initComponents();
-           ResponsableDAO RES = new ResponsableDAO();
+        ResponsableDAO RES = new ResponsableDAO();
         List<Responsable> listRES = new ArrayList<Responsable>();
         listRES=RES.selectAllResponsables();
         String[] colName = new String[] {
@@ -255,27 +255,7 @@ public class Compte_responsable extends javax.swing.JPanel {
     }//GEN-LAST:event_PrenomFieldActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        int Row=jTable1.getSelectedRow();
-        String table_click=(jTable1.getModel().getValueAt(Row, 0).toString());
-        String sql="select * from Responsable where cin='" +table_click +"' ";
-        try {
-            PreparedStatement ps = MyConnection.getInstance().prepareStatement(sql);
-             ResultSet resultat = ps.executeQuery();
-            while (resultat.next())
-            {
-                String add1=resultat.getString("cin");
-               CinField.setText(add1);
-               String add2=resultat.getString("first_name");
-               NomField.setText(add2);
-              // res.setCin(resultat.getInt(1));
-               String add3=resultat.getString("last_name");
-               PrenomField.setText(add3);
-            }
-           // return res;
 
-        } catch (SQLException ex) {
-            Logger.getLogger(Compte_responsable.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
