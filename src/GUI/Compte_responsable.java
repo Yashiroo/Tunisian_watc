@@ -4,7 +4,6 @@
  */
 package GUI;
 
-import DAO.CitoyenDAO;
 import DAO.ResponsableDAO;
 import Entities.Citoyen;
 import Entities.Responsable;
@@ -19,38 +18,35 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.event.EventListenerList;
-import javax.swing.plaf.ComponentUI;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author user
  */
-public class Compte_citoyen extends javax.swing.JPanel {
+public class Compte_responsable extends javax.swing.JPanel {
+    private int cin;
 
     /**
-     * Creates new form Compte_citoyen
+     * Creates new form Compte_responsable
      */
-    public Compte_citoyen() {
+    public Compte_responsable() {
         initComponents();
-         CitoyenDAO RES = new CitoyenDAO();
-        List<Citoyen> listcit = new ArrayList<Citoyen>();
-        listcit=RES.DisplayAllCitoyen();
+           ResponsableDAO RES = new ResponsableDAO();
+        List<Responsable> listRES = new ArrayList<Responsable>();
+        listRES=RES.selectAllResponsables();
         String[] colName = new String[] {
-           "cin", "Nom", "Prénom","adresse_mail","telephone"
+           "cin", "Nom", "Prénom"
             };
-         
+
         DefaultTableModel model = new DefaultTableModel(colName, WIDTH);
         jTable1.setModel(model);
         
         int i=0;
         int j=0;
-        String status="Inconnu";
-        for(Citoyen c:listcit)
+       
+        for(Responsable c:listRES)
         {
                // if(c.getStatus()==1)
                 //    status="Actif";
@@ -62,8 +58,8 @@ public class Compte_citoyen extends javax.swing.JPanel {
                jTable1.getModel().setValueAt(c.getCin(),i,j);
                 jTable1.getModel().setValueAt(c.getNom(),i,j+1);
                 jTable1.getModel().setValueAt(c.getPrenom(),i,j+2);
-               jTable1.getModel().setValueAt(c.getAdress_mail(),i,j+3);
-             jTable1.getModel().setValueAt(c.getPhone(),i,j+4);
+                //tableCitoyens.getModel().setValueAt(c.getAdress_mail(),i,j+3);
+              //  tableCitoyens.getModel().setValueAt(c.getPhone(),i,j+4);
                 
                // tableCitoyens.getModel().setValueAt(status,i,j+5);
             
@@ -82,31 +78,18 @@ public class Compte_citoyen extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        CinField = new javax.swing.JTextField();
-        NomField = new javax.swing.JTextField();
-        PrenomField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        CinField = new javax.swing.JTextField();
+        NomField = new javax.swing.JTextField();
+        PrenomField = new javax.swing.JTextField();
+        Effacer = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(837, 424));
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/supprimer.png"))); // NOI18N
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        CinField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CinFieldActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 0, 0));
@@ -120,9 +103,25 @@ public class Compte_citoyen extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(153, 0, 0));
         jLabel3.setText("Prenom");
 
-        jTable1.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jTable1.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(153, 0, 0));
+        CinField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CinFieldActionPerformed(evt);
+            }
+        });
+
+        PrenomField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PrenomFieldActionPerformed(evt);
+            }
+        });
+
+        Effacer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/supprimer.png"))); // NOI18N
+        Effacer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EffacerActionPerformed(evt);
+            }
+        });
+
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -130,7 +129,15 @@ public class Compte_citoyen extends javax.swing.JPanel {
             new String [] {
                 "Cin", "Nom", "Prenom"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
@@ -151,61 +158,63 @@ public class Compte_citoyen extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGap(29, 29, 29)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(PrenomField, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
-                                        .addComponent(NomField)
-                                        .addComponent(CinField))))))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Effacer, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(66, 66, 66)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGap(31, 31, 31)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(CinField)
+                                    .addComponent(NomField)
+                                    .addComponent(PrenomField, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(55, 55, 55)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(CinField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(NomField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(PrenomField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(28, 28, 28)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CinField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(NomField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(PrenomField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addComponent(Effacer, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(161, 161, 161))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void CinFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CinFieldActionPerformed
-      
+        // TODO add your handling code here:
     }//GEN-LAST:event_CinFieldActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-             
-        String requete = "delete from Citoyen where cin=?";
+    private void EffacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EffacerActionPerformed
+            
+        String requete = "delete from Responsable where cin=?";
         try {
             int row = jTable1.getSelectedRow();
             int col =jTable1.getSelectedColumn();
@@ -213,7 +222,7 @@ public class Compte_citoyen extends javax.swing.JPanel {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
             ps.setInt(1,data);
             ps.executeUpdate();
-           JOptionPane.showMessageDialog(null, "vous voulez supprimer ?");
+           JOptionPane.showMessageDialog(null, "is delete");
                DefaultTableModel model=(DefaultTableModel) jTable1.getModel();
    if (jTable1.getSelectedRow()==-1)
    {
@@ -235,12 +244,20 @@ public class Compte_citoyen extends javax.swing.JPanel {
            //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "NO");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+    
+      
+      
+    }//GEN-LAST:event_EffacerActionPerformed
+
+    private void PrenomFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrenomFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PrenomFieldActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-      int Row=jTable1.getSelectedRow();
+        int Row=jTable1.getSelectedRow();
         String table_click=(jTable1.getModel().getValueAt(Row, 0).toString());
-        String sql="select * from Citoyen where cin='" +table_click +"' ";
+        String sql="select * from Responsable where cin='" +table_click +"' ";
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(sql);
              ResultSet resultat = ps.executeQuery();
@@ -267,9 +284,9 @@ public class Compte_citoyen extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField CinField;
+    private javax.swing.JButton Effacer;
     private javax.swing.JTextField NomField;
     private javax.swing.JTextField PrenomField;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -278,36 +295,12 @@ public class Compte_citoyen extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 
-    public JTextField getCinField() {
-        return CinField;
-    }
-
-    public void setCinField(JTextField CinField) {
-        this.CinField = CinField;
-    }
-
-    public JTextField getNomField() {
-        return NomField;
-    }
-
-    public void setNomField(JTextField NomField) {
-        this.NomField = NomField;
-    }
-
-    public JTextField getPrenomField() {
-        return PrenomField;
-    }
-
-    public void setPrenomField(JTextField PrenomField) {
-        this.PrenomField = PrenomField;
-    }
-
     public JButton getjButton1() {
-        return jButton1;
+        return Effacer;
     }
 
     public void setjButton1(JButton jButton1) {
-        this.jButton1 = jButton1;
+        this.Effacer = jButton1;
     }
 
     public JLabel getjLabel1() {
@@ -334,35 +327,27 @@ public class Compte_citoyen extends javax.swing.JPanel {
         this.jLabel3 = jLabel3;
     }
 
-    public JScrollPane getjScrollPane1() {
-        return jScrollPane1;
+    public JTextField getjTextField1() {
+        return CinField;
     }
 
-    public void setjScrollPane1(JScrollPane jScrollPane1) {
-        this.jScrollPane1 = jScrollPane1;
+    public void setjTextField1(JTextField jTextField1) {
+        this.CinField = jTextField1;
     }
 
-    public JTable getjTable1() {
-        return jTable1;
+    public JTextField getjTextField2() {
+        return NomField;
     }
 
-    public void setjTable1(JTable jTable1) {
-        this.jTable1 = jTable1;
+    public void setjTextField2(JTextField jTextField2) {
+        this.NomField = jTextField2;
     }
 
-    public ComponentUI getUi() {
-        return ui;
+    public JTextField getjTextField3() {
+        return PrenomField;
     }
 
-    public void setUi(ComponentUI ui) {
-        this.ui = ui;
-    }
-
-    public EventListenerList getListenerList() {
-        return listenerList;
-    }
-
-    public void setListenerList(EventListenerList listenerList) {
-        this.listenerList = listenerList;
+    public void setjTextField3(JTextField jTextField3) {
+        this.PrenomField = jTextField3;
     }
 }

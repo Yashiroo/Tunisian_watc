@@ -7,6 +7,7 @@ package GUI;
 import DAO.CitoyenDAO;
 import Entities.Citoyen;
 import conn.MyConnection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,6 +32,40 @@ public class CompteCitoyen extends javax.swing.JPanel {
      */
     public CompteCitoyen() {
         initComponents();
+                 CitoyenDAO RES = new CitoyenDAO();
+        List<Citoyen> listcit = new ArrayList<Citoyen>();
+        listcit=RES.DisplayAllCitoyen();
+        String[] colName = new String[] {
+           "cin", "Nom", "Prénom","adresse_mail","telephone"
+            };
+         
+        DefaultTableModel model = new DefaultTableModel(colName, WIDTH);
+        tableCitoyens.setModel(model);
+        
+        int i=0;
+        int j=0;
+        String status="Inconnu";
+        for(Citoyen c:listcit)
+        {
+               // if(c.getStatus()==1)
+                //    status="Actif";
+              //  else if(c.getStatus()==0)
+                 //   status="Non Actif";
+                model.addRow(new Object[]{"", "", ""});
+                
+                
+               tableCitoyens.getModel().setValueAt(c.getCin(),i,j);
+                tableCitoyens.getModel().setValueAt(c.getNom(),i,j+1);
+                tableCitoyens.getModel().setValueAt(c.getPrenom(),i,j+2);
+               tableCitoyens.getModel().setValueAt(c.getAdress_mail(),i,j+3);
+             tableCitoyens.getModel().setValueAt(c.getPhone(),i,j+4);
+                
+               // tableCitoyens.getModel().setValueAt(status,i,j+5);
+            
+           i+=1;
+           //j+=1;
+            
+        }
     }
 
     /**
@@ -45,6 +81,7 @@ public class CompteCitoyen extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableCitoyens = new javax.swing.JTable();
         btnActiver = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
@@ -54,11 +91,23 @@ public class CompteCitoyen extends javax.swing.JPanel {
 
         jLabel1.setText("     Citoyens");
 
+        tableCitoyens.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableCitoyensMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableCitoyens);
 
         btnActiver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActiverActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Supprimer");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -77,8 +126,10 @@ public class CompteCitoyen extends javax.swing.JPanel {
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnActiver, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnActiver, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(70, 70, 70))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,7 +138,9 @@ public class CompteCitoyen extends javax.swing.JPanel {
                 .addGap(1, 1, 1)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnActiver, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnActiver, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -114,8 +167,47 @@ public class CompteCitoyen extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_btnActiverActionPerformed
+
+    private void tableCitoyensMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableCitoyensMouseClicked
+
+    }//GEN-LAST:event_tableCitoyensMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+                String requete = "delete from Citoyen where cin=?";
+        try {
+            int row = tableCitoyens.getSelectedRow();
+            int col =tableCitoyens.getSelectedColumn();
+            int data = (int)tableCitoyens.getValueAt(row,3);
+            PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
+            ps.setInt(1,data);
+            ps.executeUpdate();
+           JOptionPane.showMessageDialog(null, "vous voulez supprimer ?");
+               DefaultTableModel model=(DefaultTableModel) tableCitoyens.getModel();
+   if (tableCitoyens.getSelectedRow()==-1)
+   {
+       if (tableCitoyens.getRowCount()==0)
+       {
+           JOptionPane.showMessageDialog(null, "is empty");
+       }
+       else{
+             JOptionPane.showMessageDialog(null, "you must select a row");
+         
+       }
+       
+   }
+   else {
+       model.removeRow(tableCitoyens.getSelectedRow());
+       
+   }
+        } catch (SQLException ex) {
+           //Logger.getLogger(PersonneDao.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "NO");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActiver;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableCitoyens;

@@ -186,7 +186,7 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void compteciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compteciActionPerformed
-//        this.getContentPane().remove(rs);
+        this.getContentPane().remove(rs);
         this.getContentPane().remove(st);
         this.getContentPane().remove(gs);
         this.getContentPane().remove(sd);
@@ -195,12 +195,12 @@ public class Main extends javax.swing.JFrame {
         ct.setBounds(rect);
         this.getContentPane().add(ct);
         this.setVisible(true);
-//        ct.afficher();
+        ct.afficher();
     }//GEN-LAST:event_compteciActionPerformed
         
     private void valideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valideActionPerformed
         this.getContentPane().remove(ct);
-//        this.getContentPane().remove(rs);
+        this.getContentPane().remove(rs);
         this.getContentPane().remove(gs);
         this.getContentPane().remove(sd);
         this.repaint();
@@ -219,10 +219,10 @@ public class Main extends javax.swing.JFrame {
         this.getContentPane().remove(sd);
         this.repaint();
         
-//        rs.setBounds(rect);
-//        this.getContentPane().add(rs);
+        rs.setBounds(rect);
+        this.getContentPane().add(rs);
         this.setVisible(true);
-//        rs.afficher();
+        rs.afficher();
         
         
     }//GEN-LAST:event_compterespActionPerformed
@@ -234,7 +234,7 @@ public class Main extends javax.swing.JFrame {
     private void stats2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stats2ActionPerformed
         this.getContentPane().remove(ct);
         this.getContentPane().remove(st);
-//        this.getContentPane().remove(rs);
+        this.getContentPane().remove(rs);
         this.getContentPane().remove(sd);
         this.repaint();
         
@@ -262,7 +262,7 @@ public class Main extends javax.swing.JFrame {
     private void sendEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendEmailActionPerformed
         this.getContentPane().remove(ct);
         this.getContentPane().remove(st);
-//        this.getContentPane().remove(rs);
+        this.getContentPane().remove(rs);
         this.getContentPane().remove(gs);
         repaint();
         
@@ -323,8 +323,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton stats2;
     private javax.swing.JButton valide;
     // End of variables declaration//GEN-END:variables
-private Compte_citoyen ct = new Compte_citoyen();
-//private Compte_responsable rs = new Compte_responsable();
+private CompteCitoyen ct = new CompteCitoyen();
+private CompteResponsable rs = new CompteResponsable();
 private Statistiques st = new Statistiques();
 private stats_gouvernorat gs = new stats_gouvernorat();
 private SendEmails sd = new SendEmails();
