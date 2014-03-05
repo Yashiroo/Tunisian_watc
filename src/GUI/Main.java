@@ -18,7 +18,8 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
-        
+        this.setBounds(400, 160, 1350, 750);
+//        System.out.println(this.getBounds());
     }
 
     /**

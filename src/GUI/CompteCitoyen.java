@@ -293,8 +293,8 @@ public class CompteCitoyen extends javax.swing.JPanel {
 
         Citoyen cc;
         cc = c.findCitoyentByCin(x);
-        System.out.println("5edmet el find :p");
-        System.out.println(cc.getCin());
+        
+        //System.out.println(cc.getCin());
         c.activerCitoyen(cc);
 
 
