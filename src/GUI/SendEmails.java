@@ -194,6 +194,7 @@ public class SendEmails extends javax.swing.JPanel implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Une erreur s'est produite, veuillez réessayer");
             }
         }
+        else JOptionPane.showMessageDialog(null, "Aucune adresse n'est sélectionnée");
     }//GEN-LAST:event_sendButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
