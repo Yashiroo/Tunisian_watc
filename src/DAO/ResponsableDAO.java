@@ -82,7 +82,8 @@ public class ResponsableDAO {
     }
     
     
-public void deleteResponsable(int cin){
+public void deleteResponsable(int cin)
+{
         String requete = "delete from Responsable where cin=?";
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(requete);
