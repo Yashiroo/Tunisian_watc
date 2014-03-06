@@ -32,7 +32,8 @@ public class SendtoEmailList {
         sendFromGMail(from, pass, to, subject, body);
     }
 
-    public static void sendFromGMail(String from, String pass, String[] to, String subject, String body) {
+    public static boolean sendFromGMail(String from, String pass, String[] to, String subject, String body) {
+        
         Properties props = System.getProperties();
         String host = "smtp.gmail.com";
         props.put("mail.smtp.starttls.enable", "true");
@@ -64,12 +65,15 @@ public class SendtoEmailList {
             transport.connect(host, from, pass);
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
+            return true;
         }
         catch (AddressException ae) {
             ae.printStackTrace();
+            return false;
         }
         catch (MessagingException me) {
             me.printStackTrace();
+            return false;
         }
     }
 }

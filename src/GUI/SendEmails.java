@@ -7,6 +7,10 @@ package GUI;
 //import metier.SendtoEmailList;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import javax.swing.JOptionPane;
 import metier.GestionCitoyen;
 import metier.GestionResponsable;
 import metier.SendtoEmailList;
@@ -44,6 +48,7 @@ public class SendEmails extends javax.swing.JPanel implements ActionListener {
         radioCit = new javax.swing.JRadioButton();
         sujet = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        tous = new javax.swing.JRadioButton();
 
         sendButton.setText("Envoyer");
         sendButton.addActionListener(new java.awt.event.ActionListener() {
@@ -52,9 +57,9 @@ public class SendEmails extends javax.swing.JPanel implements ActionListener {
             }
         });
 
-        jLabel1.setText("Envoyer un Email");
+        jLabel1.setText("Envoyer un Email :");
 
-        sendListResp.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"Tous" }));
+        sendListResp.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
         sendListResp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sendListRespActionPerformed(evt);
@@ -75,56 +80,58 @@ public class SendEmails extends javax.swing.JPanel implements ActionListener {
 
         jLabel3.setText("Sujet :");
 
+        buttonGroup1.add(tous);
+        tous.setText("Tous");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(radioRes)))
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sendListResp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(radioCit))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(sendListResp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(tous)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(radioRes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(radioCit)))
+                .addGap(532, 532, 532))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 19, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(11, 11, 11)
-                        .addComponent(sujet, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 825, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addContainerGap())
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(sendButton)
-                            .addGap(61, 61, 61)))))
+                            .addGap(61, 61, 61)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(11, 11, 11)
+                        .addComponent(sujet, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(26, 26, 26))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(radioRes)
-                            .addComponent(radioCit))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tous)
+                    .addComponent(radioRes)
+                    .addComponent(radioCit)
+                    .addComponent(jLabel1))
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(sendListResp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
@@ -135,21 +142,57 @@ public class SendEmails extends javax.swing.JPanel implements ActionListener {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sendButton)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void sendListRespActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendListRespActionPerformed
 
-           
     }//GEN-LAST:event_sendListRespActionPerformed
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
+        GestionResponsable gr = new GestionResponsable();
+        String[] ares = gr.getEmails();
+        GestionCitoyen gc = new GestionCitoyen();
+        String[] acit = gc.getEmails();
+            Collection<String> collection = new ArrayList<String>();
+            collection.addAll(Arrays.asList(ares));
+            collection.addAll(Arrays.asList(acit));
+            String[] all = collection.toArray(new String[] {});
+        
         if(sendListResp.getSelectedItem()!=null)
         {
+            if(sendListResp.getSelectedItem().toString() !="Tous"){
             String[] st = new String[1];
             st[0]=sendListResp.getSelectedItem().toString();
-            SendtoEmailList.sendFromGMail("f114524@gmail.com", "QI9A5fve", st  , sujet.getText(), sendArea.getText());
+            if(SendtoEmailList.sendFromGMail("f114524@gmail.com", "QI9A5fve", st  , sujet.getText(), sendArea.getText()))
+                JOptionPane.showMessageDialog(null, "Email Envoyé");
+            else 
+                JOptionPane.showMessageDialog(null, "Une erreur s'est produite, veuillez réessayer");
+        }
+            else if(sendListResp.getSelectedItem().toString() =="Tous" && radioRes.isSelected()){
+//                System.out.println("im gonna send an email to all Responsables");
+                
+             if(SendtoEmailList.sendFromGMail("f114524@gmail.com", "QI9A5fve", ares  , sujet.getText(), sendArea.getText()))
+                JOptionPane.showMessageDialog(null, "Email Envoyé");
+            else 
+                JOptionPane.showMessageDialog(null, "Une erreur s'est produite, veuillez réessayer");
+                
+            }
+            else if(sendListResp.getSelectedItem().toString() =="Tous" && radioCit.isSelected()){
+//                System.out.println("im gonna send an email to all Citoyens");
+             if(SendtoEmailList.sendFromGMail("f114524@gmail.com", "QI9A5fve", acit  , sujet.getText(), sendArea.getText()))
+                JOptionPane.showMessageDialog(null, "Email Envoyé");
+            else 
+                JOptionPane.showMessageDialog(null, "Une erreur s'est produite, veuillez réessayer");
+            }
+            else if(sendListResp.getSelectedItem().toString() =="Tous" && tous.isSelected()){
+//                System.out.println("im gonna send an email to EVERYONE");
+             if(SendtoEmailList.sendFromGMail("f114524@gmail.com", "QI9A5fve", all  , sujet.getText(), sendArea.getText()))
+                JOptionPane.showMessageDialog(null, "Email Envoyé");
+            else 
+                JOptionPane.showMessageDialog(null, "Une erreur s'est produite, veuillez réessayer");
+            }
         }
     }//GEN-LAST:event_sendButtonActionPerformed
 
@@ -165,25 +208,25 @@ public class SendEmails extends javax.swing.JPanel implements ActionListener {
     private javax.swing.JButton sendButton;
     private javax.swing.JComboBox sendListResp;
     private javax.swing.JTextField sujet;
+    private javax.swing.JRadioButton tous;
     // End of variables declaration//GEN-END:variables
 
 public void afficher(){
-    
-        
+
         radioRes.addActionListener(this);
         radioCit.addActionListener(this);
-        
-    
+        tous.addActionListener(this);
 }
  
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if(radioRes.isSelected()){
         sendListResp.removeAllItems();
         GestionResponsable gr = new GestionResponsable();
         String[] ar = gr.getEmails();
-        
+        sendListResp.addItem("Tous");
         for(String s:ar){
              sendListResp.addItem(s);
         }
@@ -193,9 +236,19 @@ public void afficher(){
         sendListResp.removeAllItems();
         GestionCitoyen gc = new GestionCitoyen();
         String[] ar2 = gc.getEmails();
+        sendListResp.addItem("Tous");
         for(String s:ar2){
              sendListResp.addItem(s);
         }
+        }
+        
+        else if(tous.isSelected()){
+            sendListResp.removeAllItems();
+            sendListResp.addItem("Tous");
+            
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Aucune adresse email sélectionnée");
         }
         
         

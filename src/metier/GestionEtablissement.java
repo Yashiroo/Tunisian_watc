@@ -7,6 +7,8 @@ package metier;
 import DAO.EtablissementDAO;
 import DAO.ReclamationDAO;
 import Entities.Etablissement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -28,11 +30,10 @@ public class GestionEtablissement {
             
 //            afficherRecTraitees(etab,1,2014);
 //            afficherRecNonTraitees(etab,1,2014);
-            
+//            System.out.println(numEtabs());
     }
         public static Object[] afficherTotalRec(Etablissement e,int month,int year){
             Object[] totalrec = new Object[13];
-            EtablissementDAO ed = new EtablissementDAO();
             ReclamationDAO td = new ReclamationDAO();
             int m=1;
             totalrec[0]="Réclamations";
@@ -57,7 +58,6 @@ public class GestionEtablissement {
      
         public static Object[] afficherRecTraitees(Etablissement e,int month,int year){
             Object[] totalrec = new Object[13];
-            EtablissementDAO ed = new EtablissementDAO();
             ReclamationDAO td = new ReclamationDAO();
             int m=1;
             totalrec[0]="Réclamations Résolues";
@@ -82,7 +82,7 @@ public class GestionEtablissement {
         
         public static Object[] afficherRecNonTraitees(Etablissement e,int month,int year){
             Object[] totalrec = new Object[13];
-            EtablissementDAO ed = new EtablissementDAO();
+            
             ReclamationDAO td = new ReclamationDAO();
             int m=1;
             totalrec[0]="Réclamations Non Résolues";
@@ -102,6 +102,14 @@ public class GestionEtablissement {
              }
             return totalrec;
 }
+        
+        public static int numEtabs(){
+            EtablissementDAO ed = new EtablissementDAO();
+            List<Etablissement> listetab = new ArrayList<Etablissement>();
+            listetab=ed.getAllEtab();
+            return listetab.size();
+        }
+        
         
         
         }

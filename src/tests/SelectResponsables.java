@@ -21,6 +21,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import javafx.scene.chart.BarChart;
 import javax.swing.JFrame;
@@ -67,12 +69,19 @@ public static String etabName;
 //            {
 //            System.out.println(e1.getName());
 //            }
-            Ville v = new Ville();
             Etablissement e=ed.findEtablissementById(1);
-//            System.out.println(e.getName());
-            v = ed.getVilleForEtab(e);
-            System.out.println(v.getNomville());
-            
+        GestionResponsable gr = new GestionResponsable();
+        String[] ares = gr.getEmails();
+        GestionCitoyen gc = new GestionCitoyen();
+        String[] acit = gc.getEmails();
+            Collection<String> collection = new ArrayList<String>();
+            collection.addAll(Arrays.asList(ares));
+            collection.addAll(Arrays.asList(acit));
+
+            String[] healthMessagesAll = collection.toArray(new String[] {});
+            for(int i=0;i<healthMessagesAll.length;i++){
+                System.out.println(healthMessagesAll[i]);
+            }
             
             
 //            List<Reclamation> lt = new ArrayList<Reclamation>();

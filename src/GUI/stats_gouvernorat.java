@@ -10,9 +10,18 @@ import DAO.ReclamationDAO;
 import DAO.VilleDAO;
 import Entities.Etablissement;
 import Entities.Gouvernorat;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import metier.GeneratePDFEtabGouv;
 import metier.GestionReclamation;
 
 /**
@@ -40,6 +49,7 @@ public class stats_gouvernorat extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         gouvtab = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        btnrapport = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(845, 469));
 
@@ -58,6 +68,13 @@ public class stats_gouvernorat extends javax.swing.JPanel {
 
         jLabel1.setText("Statistiques des Réclamations par Gouvernorat et Etablissement");
 
+        btnrapport.setText("Exporter en PDF");
+        btnrapport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnrapportActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -70,6 +87,10 @@ public class stats_gouvernorat extends javax.swing.JPanel {
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnrapport)
+                .addGap(61, 61, 61))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,10 +99,32 @@ public class stats_gouvernorat extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnrapport)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnrapportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnrapportActionPerformed
+        GeneratePDFEtabGouv gpdf = new GeneratePDFEtabGouv();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        if(gpdf.generate())
+        {
+                        try {
+                JOptionPane.showMessageDialog(null, "Rapport généré");
+                File f = new File("Rapport Filtré "+dateFormat.format(new Date())+".pdf");
+                Desktop desktop = Desktop.getDesktop();
+                desktop.open(f);
+            } catch (IOException ex) {
+                Logger.getLogger(Statistiques.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Une erreur s'est produite!");
+    }//GEN-LAST:event_btnrapportActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnrapport;
     private javax.swing.JTable gouvtab;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -106,7 +149,6 @@ public void afficher(){
         gouvtab.setModel(model);
         int k=0;
         GestionReclamation grec = new GestionReclamation();
-//        int grecs=0;
         VilleDAO vd = new VilleDAO();
         
         

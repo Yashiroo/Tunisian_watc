@@ -25,27 +25,17 @@ public class VilleDAO {
         try {
             PreparedStatement ps = MyConnection.getInstance().prepareStatement(query);
             ps.setInt(1,v.getIdville());
-            ps.setInt(2, g.getIdgouv());            
+            ps.setInt(2, g.getIdgouv());
             ResultSet resultat = ps.executeQuery();
             
             if(resultat.next())
                 return true;
             
-            
-            
-            
-            
-            
-            
-            
         } catch (SQLException ex) {
             Logger.getLogger(VilleDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-        
-        
-        
-        
+
         return false;
     }
 }

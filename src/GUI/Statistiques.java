@@ -8,9 +8,18 @@ import DAO.EtablissementDAO;
 import DAO.ReclamationDAO;
 import Entities.Etablissement;
 import Entities.Reclamation;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.stage.FileChooser;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import metier.GeneratePDFEtabs;
 
 /**
  *
@@ -37,6 +46,7 @@ public class Statistiques extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         stats = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        btnpdf = new javax.swing.JButton();
 
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
@@ -59,6 +69,13 @@ public class Statistiques extends javax.swing.JPanel {
 
         jLabel1.setText("Statistiques des Réclamations filtrées par Etablissement");
 
+        btnpdf.setText("Exporter en PDF");
+        btnpdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnpdfActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,6 +88,10 @@ public class Statistiques extends javax.swing.JPanel {
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnpdf)
+                .addGap(77, 77, 77))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,16 +100,38 @@ public class Statistiques extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnpdf)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        //JavaFX_Statistics jfx = new JavaFX_Statistics();
+        
         
     }//GEN-LAST:event_formComponentShown
 
+    private void btnpdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpdfActionPerformed
+        
+        GeneratePDFEtabs gpdf = new GeneratePDFEtabs();
+        
+        if(gpdf.generate()){
+            try {
+                JOptionPane.showMessageDialog(null, "Rapport généré");
+                File f = new File("Rapport.pdf");
+                Desktop desktop = Desktop.getDesktop();
+                desktop.open(f);
+            } catch (IOException ex) {
+                Logger.getLogger(Statistiques.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Une erreur s'est produite!");
+ 
+    }//GEN-LAST:event_btnpdfActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnpdf;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable stats;
@@ -103,25 +146,6 @@ public void afficherStatistiques(){
             };
         DefaultTableModel model = new DefaultTableModel(colName, WIDTH); 
         stats.setModel(model);
-        
-         List<Reclamation> lt = new ArrayList<Reclamation>();
-         lt=td.getAllRec();
-         int resolue=0;
-         int nonresolue=0;
-         int i=0;
-         int j=0;
-         
-         for(Reclamation t:lt){
-             
-                if(t.getEtat().equals("resolue"))
-                    resolue+=1;
-                else if(t.getEtat().equals("non resolue"))
-                    nonresolue+=1;
-                
-                
-              //stats.getModel().setValueAt(lt.size(),i,1);
-            i+=1;
-        }
         
         List<Etablissement> le = new ArrayList<Etablissement>();
         le=ed.getAllEtab();
